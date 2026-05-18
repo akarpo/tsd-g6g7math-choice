@@ -332,21 +332,21 @@ def build_slide_02():
     add_rect(slide, b2x, box_y, box_w, box_h, LIGHT_RED)
     accent_bar(slide, b2x, box_y, box_w, ACCENT_RED)
     add_text(slide, b2x + Inches(0.15), box_y + Inches(0.15), box_w - Inches(0.3), Inches(0.6),
-             "59 positions", font_size=30, bold=True, color=ACCENT_RED)
+             "6th of 8", font_size=30, bold=True, color=ACCENT_RED)
     add_text(slide, b2x + Inches(0.15), box_y + Inches(0.85), box_w - Inches(0.3), Inches(1.8),
-             "Lost in national rankings — from #76 (top quarter) "
-             "to #135 (mid-pack)",
+             "MI peers outpaced Troy in IM-window recovery "
+             "(+0.076 vs +0.080 median)",
              font_size=14, color=GRAY_DARK)
 
-    # Box 3 — LIGHT_GREEN
+    # Box 3 — LIGHT_RED
     b3x = b2x + box_w + gap
-    add_rect(slide, b3x, box_y, box_w + Inches(0.5), box_h, LIGHT_GREEN)
-    accent_bar(slide, b3x, box_y, box_w + Inches(0.5), ACCENT_GREEN)
+    add_rect(slide, b3x, box_y, box_w + Inches(0.5), box_h, LIGHT_RED)
+    accent_bar(slide, b3x, box_y, box_w + Inches(0.5), ACCENT_RED)
     add_text(slide, b3x + Inches(0.15), box_y + Inches(0.15), box_w, Inches(0.6),
-             "9×", font_size=30, bold=True, color=ACCENT_GREEN)
+             "−0.028", font_size=30, bold=True, color=ACCENT_RED)
     add_text(slide, b3x + Inches(0.15), box_y + Inches(0.85), box_w, Inches(1.8),
-             "Birmingham recovered 9× more than Troy in the same "
-             "window, same county, with tracking intact",
+             "G7 Asian still declining under IM — only subgroup "
+             "not recovering",
              font_size=14, color=GRAY_DARK)
 
 
@@ -425,8 +425,8 @@ def build_slide_04():
 # =============================================================================
 def build_slide_05():
     slide = new_slide(
-        "Troy Fell 59 Places in the National Math Rankings",
-        "From top-quarter to mid-pack among 296 level-matched peers",
+        "COVID Erased Troy's Math Advantage",
+        "Pre-COVID #76 → Post-COVID #135 among 296 level-matched peers",
         slide_num=5)
 
     embed_chart(slide, "chart11_rank_shift_scatter.png")
@@ -440,7 +440,7 @@ def build_slide_05():
         "Pre-COVID: top quarter",
         "Post-COVID: mid-pack",
         "",
-        "Peers at the same starting level pulled ahead",
+        "COVID hit Troy harder than most peers. This is the deficit IM inherited.",
     ], font_size=15, color=GRAY_DARK, space_after=6)
 
 
@@ -449,8 +449,8 @@ def build_slide_05():
 # =============================================================================
 def build_slide_06():
     slide = new_slide(
-        "MI Peer Leaderboard: Troy Fell From 2nd to 4th",
-        "4 of 5 subgroups lost positions under IM + detracking",
+        "MI Peer Leaderboard: Troy Holds at 4th in IM Window",
+        "Rank unchanged from 2023 to 2025 — no ground gained or lost",
         slide_num=6)
 
     embed_chart(slide, "chart12_mi_peer_bump.png")
@@ -462,11 +462,11 @@ def build_slide_06():
              "Troy’s Rank Shift by Subgroup", font_size=14, bold=True, color=DARK_RED_HDR)
 
     subgroups = [
-        ("All Students", "2nd→4th", "−2"),
-        ("Asian", "1st→2nd", "−1"),
-        ("White", "6th→5th", "+1"),
-        ("Econ Disadv", "3rd→4th", "−1"),
-        ("Not Econ Disadv", "2nd→3rd", "−1"),
+        ("All Students", "4th→4th", "±0"),
+        ("Asian", "3rd→3rd", "±0"),
+        ("White", "4th→5th", "−1"),
+        ("Econ Disadv", "3rd→3rd", "±0"),
+        ("Not Econ Disadv", "3rd→3rd", "±0"),
     ]
 
     # Table header row
@@ -485,7 +485,7 @@ def build_slide_06():
         ry = tbl_y + row_h + Inches(i * 0.42)
         bg = WHITE if i % 2 == 0 else GRAY_LIGHT
         add_rect(slide, ix, ry, iw, Inches(0.42), bg)
-        clr = ACCENT_GREEN if delta.startswith("+") else ACCENT_RED
+        clr = ACCENT_GREEN if delta.startswith("+") else (ACCENT_RED if delta.startswith("−") or delta.startswith("-") else GRAY_MID)
         add_text(slide, ix + Inches(0.08), ry + Inches(0.05), col_w1, Inches(0.35),
                  sg, font_size=12, bold=True, color=GRAY_DARK)
         add_text(slide, ix + col_w1, ry + Inches(0.05), col_w2, Inches(0.35),
@@ -496,8 +496,8 @@ def build_slide_06():
     # Bottom note
     note_y = tbl_y + row_h + Inches(len(subgroups) * 0.42) + Inches(0.2)
     add_text(slide, ix, note_y, iw, Inches(0.7),
-             "Was #1 Asian math in MI.\nNorthville now leads.",
-             font_size=13, bold=True, color=ACCENT_RED)
+             "White subgroup dropped one spot (4th→5th).\nRank stability = not closing the gap.",
+             font_size=12, bold=True, color=ACCENT_ORANGE)
 
 
 # =============================================================================
@@ -505,22 +505,23 @@ def build_slide_06():
 # =============================================================================
 def build_slide_07():
     slide = new_slide(
-        "The Post-COVID Decline Hit Troy Hard in Math",
-        "Troy declined −0.187 grade levels — rank 104 of 296 (35th percentile)",
+        "IM-Window Recovery: Troy Mid-Pack Among 22 Districts",
+        "Troy +0.076 — 13th of 22 analysis districts (2023 → 2025)",
         slide_num=7)
 
     embed_chart(slide, "chart09_covid_delta_ranking.png")
 
-    ix, iy, iw, ih = panel_box(slide, PANEL_L, PANEL_T, PANEL_W, PANEL_H, LIGHT_RED)
+    ix, iy, iw, ih = panel_box(slide, PANEL_L, PANEL_T, PANEL_W, PANEL_H, LIGHT_ORANGE)
     add_text(slide, ix, iy, iw, Inches(0.7),
-             "−0.187", font_size=32, bold=True, color=ACCENT_RED)
+             "+0.076", font_size=32, bold=True, color=ACCENT_ORANGE)
     add_multiline(slide, ix, iy + Inches(0.75), iw, ih - Inches(0.8), [
-        "grade-level decline",
+        "grade-level recovery",
+        "(2023 → 2025)",
         "",
-        "Rank 104 of 296",
-        "(35th percentile)",
+        "Rank 13 / 22",
+        "mid-pack among analysis districts",
         "",
-        "3rd worst among 8 MI peers",
+        "6th of 8 MI peers",
     ], font_size=15, color=GRAY_DARK, space_after=6)
 
 
@@ -529,8 +530,8 @@ def build_slide_07():
 # =============================================================================
 def build_slide_08():
     slide = new_slide(
-        "The Critical Test: Recovery During the IM Window (2022–23 → 2024–25)",
-        "If IM were working, Troy should show stronger-than-peer recovery",
+        "The Critical Test: Recovery During the IM Window",
+        "296-peer ranking of IM-window recovery — Troy in the bottom third",
         slide_num=8)
 
     embed_chart(slide, "chart04_level_matched_histogram.png")
@@ -554,7 +555,7 @@ def build_slide_08():
 def build_slide_09():
     slide = new_slide(
         "Among MI Peers, Troy Ranks 6th of 8 in Recovery",
-        "Birmingham (tracked) recovered 9× more than Troy (IM + detracked)",
+        "Novi leads with 1.6× more recovery; Troy trails the median",
         slide_num=9)
 
     # Slightly narrower chart to fit the wider table panel
@@ -570,14 +571,14 @@ def build_slide_09():
              "IM-Window Recovery Ranking", font_size=14, bold=True, color=TROY_BLUE)
 
     peers = [
-        ("Birmingham", "+0.211", "(tracked)", ACCENT_GREEN),
-        ("Northville", "+0.102", "(tracked)", ACCENT_GREEN),
-        ("Bloomfield Hills", "+0.082", "(tracked)", ACCENT_GREEN),
-        ("Walled Lake", "+0.056", "", GRAY_DARK),
-        ("Novi", "+0.029", "", GRAY_DARK),
-        ("Troy", "+0.024", "(IM+detracked)", ACCENT_RED),
-        ("Rochester", "+0.000", "", GRAY_DARK),
-        ("West Bloomfield", "+0.006", "", GRAY_DARK),
+        ("Novi", "+0.123", "", ACCENT_GREEN),
+        ("Birmingham", "+0.095", "(tracked)", ACCENT_GREEN),
+        ("Northville", "+0.082", "(tracked)", ACCENT_GREEN),
+        ("Rochester", "+0.080", "", GRAY_DARK),
+        ("Bloomfield Hills", "+0.079", "(tracked)", ACCENT_GREEN),
+        ("Troy", "+0.076", "(IM+detracked)", ACCENT_RED),
+        ("West Bloomfield", "+0.039", "", GRAY_DARK),
+        ("Walled Lake", "+0.016", "", GRAY_DARK),
     ]
 
     row_h_val = Inches(0.56)
@@ -601,7 +602,7 @@ def build_slide_09():
 def build_slide_10():
     slide = new_slide(
         "G7 Math: The Tracked-vs-IM Comparison Year",
-        "2023-24: G7 tracked. 2024-25: First G7 IM cohort — recovery stalled",
+        "2023-24 G7 tracked (+0.018). 2024-25 first G7 IM cohort (+0.061)",
         slide_num=10)
 
     embed_chart(slide, "chart02_mi_peers_g7_trend.png")
@@ -615,18 +616,18 @@ def build_slide_10():
     add_text(slide, ix, iy, iw, Inches(0.35),
              "2023-24: G7 still tracked", font_size=14, bold=True, color=ACCENT_GREEN)
     add_text(slide, ix, iy + Inches(0.45), iw, ih - Inches(0.5),
-             "Troy matched peers when G7 still used the tracked curriculum "
-             "with Big Ideas Math and honors pathways.",
+             "G7 still used Big Ideas Math with tracking. "
+             "Troy gained +0.018 — 7th of 8 MI peers.",
              font_size=14, color=GRAY_DARK)
 
-    # Bottom panel — LIGHT_RED
+    # Bottom panel — LIGHT_GREEN (recovery accelerated)
     p2_top = PANEL_T + half_h + gap
-    ix2, iy2, iw2, ih2 = panel_box(slide, PANEL_L, p2_top, PANEL_W, half_h + Inches(0.25), LIGHT_RED)
+    ix2, iy2, iw2, ih2 = panel_box(slide, PANEL_L, p2_top, PANEL_W, half_h + Inches(0.25), LIGHT_GREEN)
     add_text(slide, ix2, iy2, iw2, Inches(0.35),
-             "2024-25: First G7 IM cohort", font_size=14, bold=True, color=ACCENT_RED)
+             "2024-25: First G7 IM cohort", font_size=14, bold=True, color=ACCENT_GREEN)
     add_text(slide, ix2, iy2 + Inches(0.45), iw2, ih2 - Inches(0.5),
-             "Recovery stalled. The first cohort to experience IM in both "
-             "G6 and G7 shows no additional gains over the prior tracked year.",
+             "Troy gained +0.061 — 2nd of 8 MI peers. "
+             "Recovery accelerated under IM.",
              font_size=14, color=GRAY_DARK)
 
 
@@ -635,29 +636,31 @@ def build_slide_10():
 # =============================================================================
 def build_slide_11():
     slide = new_slide(
-        "The Asian Subgroup Crisis — 36% of Troy’s Enrollment",
-        "Troy’s historically strongest demographic shows the sharpest decline",
+        "Asian Subgroup: G6 Leads Recovery, G7 Lags",
+        "36% of Troy — strongest G6 IM-window recovery of any subgroup",
         slide_num=11)
 
     embed_chart(slide, "chart05_asian_g6_trend.png")
 
-    ix, iy, iw, ih = panel_box(slide, PANEL_L, PANEL_T, PANEL_W, PANEL_H, LIGHT_RED)
+    ix, iy, iw, ih = panel_box(slide, PANEL_L, PANEL_T, PANEL_W, PANEL_H, GRAY_LIGHT)
 
     stats = [
-        ("G6 Asian Δ COVID:", "−0.409", ACCENT_RED),
-        ("G7 Asian Δ COVID:", "−0.278", ACCENT_RED),
-        ("G7 Asian IM-window:", "−0.094", ACCENT_RED),
+        ("G6 Asian IM Δ:", "+0.312", ACCENT_GREEN,
+         "Strongest recovery of any Troy subgroup. #2 among MI peers in G6 Asian."),
+        ("G7 Asian IM Δ:", "−0.028", ACCENT_RED,
+         "Only subgroup still declining. G7 had just one year of IM."),
+        ("Gap from pre-COVID:", "−0.340", ACCENT_ORANGE,
+         "G7 Asian still far below 2017-19 baseline despite G6 recovery."),
     ]
 
-    for i, (label, value, clr) in enumerate(stats):
+    for i, (label, value, clr, note) in enumerate(stats):
         sy = iy + Inches(i * 1.6)
         add_text(slide, ix, sy, iw, Inches(0.35),
                  label, font_size=14, bold=True, color=GRAY_DARK)
         add_text(slide, ix, sy + Inches(0.4), iw, Inches(0.6),
                  value, font_size=30, bold=True, color=clr)
-        if i == 2:
-            add_text(slide, ix, sy + Inches(1.05), iw, Inches(0.35),
-                     "(still declining)", font_size=14, bold=True, color=ACCENT_RED)
+        add_text(slide, ix, sy + Inches(1.0), iw, Inches(0.5),
+                 note, font_size=11, color=GRAY_DARK)
 
 
 # =============================================================================
@@ -665,17 +668,17 @@ def build_slide_11():
 # =============================================================================
 def build_slide_12():
     slide = new_slide(
-        "G7 Asian Math Is Still Declining Under IM",
-        "High-Asian peers with tracking show robust recovery",
+        "G7 Asian: First IM Year Shows Slight Decline",
+        "High-Asian peers with tracking outpace Troy's G7 Asian (2023 → 2025)",
         slide_num=12)
 
     embed_chart(slide, "chart06_asian_g7_trend.png")
 
     # Comparison cards
     cards = [
-        ("Bellevue (WA)", "+0.162", LIGHT_GREEN, ACCENT_GREEN),
-        ("Issaquah (WA)", "+0.218", LIGHT_GREEN, ACCENT_GREEN),
-        ("Troy (MI)", "−0.094", LIGHT_RED, ACCENT_RED),
+        ("Issaquah (WA)", "+0.384", LIGHT_GREEN, ACCENT_GREEN),
+        ("Bellevue (WA)", "+0.192", LIGHT_GREEN, ACCENT_GREEN),
+        ("Troy (MI)", "−0.028", LIGHT_RED, ACCENT_RED),
     ]
 
     card_h = Inches(1.55)
@@ -694,8 +697,8 @@ def build_slide_12():
 # =============================================================================
 def build_slide_13():
     slide = new_slide(
-        "Every Subgroup Declined — But Recovery Is Uneven",
-        "Asian and White subgroups show largest absolute declines",
+        "IM-Window Recovery by Subgroup (2023 → 2025)",
+        "Asian leads combined recovery; White lags peers",
         slide_num=13)
 
     embed_chart(slide, "chart07_troy_subgroup_waterfall.png")
@@ -704,15 +707,15 @@ def build_slide_13():
     add_text(slide, ix, iy, iw, Inches(0.4),
              "Key Findings", font_size=16, bold=True, color=TROY_BLUE)
     add_multiline(slide, ix, iy + Inches(0.5), iw, ih - Inches(0.6), [
-        "Asian and White subgroups show the largest absolute declines from pre-COVID levels.",
+        "Every subgroup recovered except G7 Asian (-0.028).",
         "",
-        "Economically disadvantaged students were already near the national average — "
-        "the gap between ECD and non-ECD has not narrowed.",
+        "Asian G6 leads recovery (+0.312), strongest of any Troy subgroup.",
         "",
-        "No subgroup has returned to pre-COVID performance under IM + detracking.",
+        "White subgroup barely improved (+0.023 combined), 7th of 8 MI peers in G6.",
         "",
-        "The “rising tide lifts all boats” promise of detracking has not materialised "
-        "for any demographic group in Troy.",
+        "ECD recovery is mixed: G6 flat (-0.007), G7 strong (+0.149, 3rd of 8).",
+        "",
+        "All subgroups remain below pre-COVID levels.",
     ], font_size=14, color=GRAY_DARK, space_after=4)
 
 
@@ -883,8 +886,8 @@ def build_slide_17():
     findings = [
         ("1", "SFUSD made the identical claim for a decade before test scores "
          "revealed no improvement"),
-        ("2", "SEDA shows Troy’s G6+G7 math readiness dropped from "
-         "+0.937 to +0.750 — a quarter-grade-level decline"),
+        ("2", "SEDA shows Troy rose +0.076 in the IM window (2023→2025) "
+         "but remains far below pre-COVID +0.937"),
         ("3", "The comparison is not past Troy enrollment — it’s what "
          "tracked peers achieve now"),
     ]
@@ -1002,16 +1005,16 @@ def build_slide_20():
         slide_num=20)
 
     conclusions = [
+        (ACCENT_ORANGE, LIGHT_ORANGE,
+         "Troy has NOT outperformed — 6th of 8 MI peers, 197/295 nationally"),
         (ACCENT_RED, LIGHT_RED,
-         "Troy has NOT outperformed — bottom third of 295 peers"),
-        (ACCENT_RED, LIGHT_RED,
-         "Asian subgroup most concerning — G7 Asian STILL declining"),
+         "G7 Asian most concerning — only subgroup still declining (−0.028)"),
+        (ACCENT_GREEN, LIGHT_GREEN,
+         "G6 Asian a bright spot — strongest recovery (+0.312), #2 MI peers"),
         (ACCENT_ORANGE, LIGHT_ORANGE,
          "Detracking evidence base against — SFUSD, Cambridge reversed"),
         (ACCENT_ORANGE, LIGHT_ORANGE,
-         "Course enrollment ≠ achievement — 50% Algebra 1 misleads"),
-        (ACCENT_RED, LIGHT_RED,
-         "Opportunity cost real — Birmingham recovered 9× more"),
+         "Recovery real but slow — all subgroups still below pre-COVID"),
     ]
 
     y = Inches(1.15)
@@ -1051,7 +1054,7 @@ def build_slide_21():
          "above/below the national average. Enables cross-state, cross-year comparison."),
         ("Time Windows",
          "Pre-COVID baseline: 2017–19 mean. Post-COVID: 2022–25 mean. "
-         "IM window: 2022–23 → 2024–25 (the exact adoption period)."),
+         "IM window: 2023 → 2025 (last pre-IM test to latest data)."),
         ("Peer Groups",
          "296 level-matched peers: pre-COVID G6+G7 math ±0.25 of Troy’s +0.937. "
          "107 high-Asian peers: ≥20% Asian enrollment, pre-COVID ≥+0.50. "

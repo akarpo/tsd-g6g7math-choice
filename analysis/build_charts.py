@@ -232,17 +232,17 @@ def chart02_mi_peers_g7_trend():
 # ======================================================================
 def chart03_im_window_ranking():
     print("Chart 03: IM-window ranking (MI peers)...")
-    # Compute IM-window delta (2022-23 avg -> 2024-25 avg) for G6+G7 pooled
+    # Compute IM-window delta (2023 → 2025) for G6+G7 pooled
     results = []
     for sid, label in MI_PEERS.items():
         dists = df[df["sedaadmin"] == sid]
         for grade in [6, 7]:
             gd = dists[dists["grade"] == grade]
-            pre_im = gd[gd["year"].isin([2022, 2023])]["cs_mn_all"].mean()
-            post_im = gd[gd["year"].isin([2024, 2025])]["cs_mn_all"].mean()
-            if pd.notna(pre_im) and pd.notna(post_im):
+            pre_im = gd[gd["year"] == 2023]["cs_mn_all"].values
+            post_im = gd[gd["year"] == 2025]["cs_mn_all"].values
+            if len(pre_im) and len(post_im):
                 results.append({"sid": sid, "label": label, "grade": grade,
-                                "delta": post_im - pre_im})
+                                "delta": post_im[0] - pre_im[0]})
 
     rdf = pd.DataFrame(results)
     pooled = rdf.groupby(["sid", "label"])["delta"].mean().reset_index()
@@ -270,8 +270,8 @@ def chart03_im_window_ranking():
 
     ax.axvline(0, color=GRAY_DARK, linewidth=0.8)
     style_ax(ax, "IM-Window Recovery: MI Affluent Peers",
-             subtitle="Change in G6+G7 math scores from pre-IM (2022-23) to post-IM (2024-25)",
-             xlabel="Change in grade levels (cs_mn_all)")
+             subtitle="Change in G6+G7 math scores, 2023 to 2025 (SEDA cs_mn_all)",
+             xlabel="Change in grade levels (2023 → 2025)")
     ax.set_xlim(min(pooled["delta"]) - 0.05, max(pooled["delta"]) + 0.07)
     savefig(fig, "chart03_im_window_ranking.png")
 
@@ -411,10 +411,10 @@ def chart07_troy_subgroup_waterfall():
     pre_vals = {}
     post_vals = {}
     for label, col in subgroups.items():
-        # Pre-COVID: 2017-2019, G6+G7 pooled
-        pre = troy[troy["year"].isin([2017, 2018, 2019])][col].mean()
-        # Post-COVID: 2022-2025, G6+G7 pooled
-        post = troy[troy["year"].isin([2022, 2023, 2024, 2025])][col].mean()
+        # Pre-IM baseline: 2023 (last pre-IM test), G6+G7 pooled
+        pre = troy[troy["year"] == 2023][col].mean()
+        # Post-IM: 2025 (latest data), G6+G7 pooled
+        post = troy[troy["year"] == 2025][col].mean()
         pre_vals[label] = pre
         post_vals[label] = post
 
@@ -426,9 +426,9 @@ def chart07_troy_subgroup_waterfall():
     width = 0.35
 
     fig, ax = plt.subplots(figsize=(10, 6))
-    bars_pre = ax.bar(x - width / 2, pre_arr, width, label="Pre-COVID (2017-19)",
+    bars_pre = ax.bar(x - width / 2, pre_arr, width, label="Pre-IM (2023)",
                       color=TROY_BLUE, edgecolor="white", linewidth=0.5)
-    bars_post = ax.bar(x + width / 2, post_arr, width, label="Post-COVID (2022-25)",
+    bars_post = ax.bar(x + width / 2, post_arr, width, label="Post-IM (2025)",
                        color=CHART_AMBER, edgecolor="white", linewidth=0.5)
 
     # Add delta labels
@@ -457,7 +457,7 @@ def chart07_troy_subgroup_waterfall():
     ax.set_xticks(x)
     ax.set_xticklabels(labels, fontsize=10)
     ax.axhline(0, color=GRAY_LIGHT, linewidth=0.8, linestyle="--")
-    style_ax(ax, "Troy SD: Math Scores by Subgroup, Pre- vs. Post-COVID",
+    style_ax(ax, "Troy SD: Subgroup IM-Window Recovery (2023 → 2025)",
              subtitle="G6+G7 pooled; SEDA cohort-standardized mean (grade levels above national norm)",
              ylabel="Grade levels above national norm")
     ax.legend(fontsize=9, loc="upper right", framealpha=0.9, edgecolor=GRAY_LIGHT)
@@ -543,17 +543,17 @@ def chart08_mstep_troy_proficiency():
 #  CHART 9: COVID-Delta Ranking (All 22 Districts)
 # ======================================================================
 def chart09_covid_delta_ranking():
-    print("Chart 09: COVID-delta ranking (22 districts)...")
+    print("Chart 09: IM-window recovery ranking (22 districts)...")
     results = []
     for sid, label in ALL_DISTRICTS.items():
         dists = df[df["sedaadmin"] == sid]
         deltas = []
         for grade in [6, 7]:
             gd = dists[dists["grade"] == grade]
-            pre = gd[gd["year"].isin([2017, 2018, 2019])]["cs_mn_all"].mean()
-            post = gd[gd["year"].isin([2022, 2023, 2024, 2025])]["cs_mn_all"].mean()
-            if pd.notna(pre) and pd.notna(post):
-                deltas.append(post - pre)
+            pre = gd[gd["year"] == 2023]["cs_mn_all"].values
+            post = gd[gd["year"] == 2025]["cs_mn_all"].values
+            if len(pre) and len(post):
+                deltas.append(post[0] - pre[0])
         if deltas:
             results.append({"sid": sid, "label": label, "delta": np.mean(deltas)})
 
@@ -575,9 +575,9 @@ def chart09_covid_delta_ranking():
                 color=GRAY_DARK)
 
     ax.axvline(0, color=GRAY_DARK, linewidth=0.8)
-    style_ax(ax, "Pre/Post-COVID Math Delta: All Analysis Districts",
-             subtitle="G6+G7 pooled; pre=mean(2017-19), post=mean(2022-25); SEDA cs_mn_all",
-             xlabel="Change in grade levels above national norm")
+    style_ax(ax, "IM-Window Recovery: All Analysis Districts (2023 → 2025)",
+             subtitle="G6+G7 pooled; SEDA cs_mn_all",
+             xlabel="Change in grade levels (2023 → 2025)")
     savefig(fig, "chart09_covid_delta_ranking.png")
 
 
@@ -587,11 +587,11 @@ def chart09_covid_delta_ranking():
 def chart10_high_asian_peers_delta():
     print("Chart 10: High-Asian peers delta (lollipop)...")
     # Filter peers with >=20% Asian enrollment
-    ha = peers[peers["asn_share"] >= 0.20].copy()
-    ha = ha.sort_values("delta", ascending=True).reset_index(drop=True)
+    ha = peers[peers["asn_share"] >= 0.20].dropna(subset=["im_delta"]).copy()
+    ha = ha.sort_values("im_delta", ascending=True).reset_index(drop=True)
 
     troy_idx = ha[ha["sid"] == 2634260].index[0]
-    troy_delta = ha.loc[troy_idx, "delta"]
+    troy_delta = ha.loc[troy_idx, "im_delta"]
     n_total = len(ha)
 
     # Select which districts to show: top 20, bottom 10, and Troy's neighborhood
@@ -612,17 +612,17 @@ def chart10_high_asian_peers_delta():
     for _, row in ha_show.iterrows():
         if row["sid"] == 2634260:
             colors.append(ACCENT_RED)
-        elif row["delta"] >= 0:
+        elif row["im_delta"] >= 0:
             colors.append(CHART_GREEN)
         else:
             colors.append(CHART_AMBER)
 
     # Lollipop stems
     for i, (_, row) in enumerate(ha_show.iterrows()):
-        ax.plot([0, row["delta"]], [i, i], color=colors[i], linewidth=1.2, zorder=3)
+        ax.plot([0, row["im_delta"]], [i, i], color=colors[i], linewidth=1.2, zorder=3)
 
     # Dots
-    ax.scatter(ha_show["delta"], y_pos, c=colors, s=60, zorder=5, edgecolor="white",
+    ax.scatter(ha_show["im_delta"], y_pos, c=colors, s=60, zorder=5, edgecolor="white",
                linewidth=0.5)
 
     ax.set_yticks(y_pos)
@@ -647,9 +647,9 @@ def chart10_high_asian_peers_delta():
                     fontsize=7, color=GRAY_MID, va="center", style="italic")
         prev_orig_idx = orig_idx
 
-    style_ax(ax, "High-Asian Peer Districts: Pre/Post-COVID Math Delta",
+    style_ax(ax, "High-Asian Peer Districts: IM-Window Recovery",
              subtitle=f"{n_total} districts with >=20% Asian enrollment and pre-COVID math >=+0.50",
-             xlabel="Change in grade levels (pre-COVID to post-COVID)")
+             xlabel="IM-window recovery (grade levels)")
     savefig(fig, "chart10_high_asian_peers_delta.png")
 
 
@@ -682,8 +682,8 @@ def chart11_rank_shift_scatter():
     ax.text(0.03, 0.95, "Fall in ranking\n(below diagonal)",
             transform=ax.transAxes, ha="left", va="top",
             fontsize=8, color=GRAY_MID, style="italic")
-    ax.set_xlabel("Pre-COVID Rank (1 = highest math)", fontsize=10, color=GRAY_MID)
-    ax.set_ylabel("Post-COVID Rank (1 = highest math)", fontsize=10, color=GRAY_MID)
+    ax.set_xlabel("Pre-COVID Rank, 2017–19 (1 = highest math)", fontsize=10, color=GRAY_MID)
+    ax.set_ylabel("Post-COVID Rank, 2022–25 (1 = highest math)", fontsize=10, color=GRAY_MID)
     ax.set_xlim(0, 300)
     ax.set_ylim(0, 300)
     ax.invert_yaxis()
@@ -705,8 +705,8 @@ def chart12_mi_peer_bump():
     mi["label"] = mi["sedaadmin"].map(MI_PEERS)
 
     g67 = mi[mi["grade"].isin([6, 7])]
-    pre = g67[g67["year"].between(2017, 2019)].groupby("label")["cs_mn_all"].mean()
-    post = g67[g67["year"].between(2022, 2025)].groupby("label")["cs_mn_all"].mean()
+    pre = g67[g67["year"] == 2023].groupby("label")["cs_mn_all"].mean()
+    post = g67[g67["year"] == 2025].groupby("label")["cs_mn_all"].mean()
 
     pre_rank = pre.rank(ascending=False).astype(int)
     post_rank = post.rank(ascending=False).astype(int)
@@ -720,9 +720,9 @@ def chart12_mi_peer_bump():
     ax.invert_yaxis()
     ax.axis("off")
 
-    ax.text(0, 0.2, "Pre-COVID (2017–19)", ha="center", fontsize=11,
+    ax.text(0, 0.2, "Pre-IM (2023)", ha="center", fontsize=11,
             fontweight="bold", color=GRAY_DARK, transform=ax.transData)
-    ax.text(1, 0.2, "Post-COVID (2022–25)", ha="center", fontsize=11,
+    ax.text(1, 0.2, "Post-IM (2025)", ha="center", fontsize=11,
             fontweight="bold", color=GRAY_DARK, transform=ax.transData)
 
     from matplotlib.path import Path
