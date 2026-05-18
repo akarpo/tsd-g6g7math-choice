@@ -130,12 +130,8 @@ peers["sid"] = peers["sid"].astype(int)
 
 # ── Helpers ────────────────────────────────────────────────────────────
 def style_ax(ax, title, subtitle=None, ylabel=None, xlabel=None):
-    """Apply consistent styling to an axes object."""
-    ax.set_title(title, fontsize=14, fontweight="bold", color=GRAY_DARK,
-                 pad=18 if subtitle else 10, loc="left")
-    if subtitle:
-        ax.text(0, 1.02, subtitle, transform=ax.transAxes,
-                fontsize=10, color=GRAY_MID, va="bottom", ha="left")
+    """Apply consistent styling to an axes object.
+    Titles omitted — slide headers provide context when embedded."""
     if ylabel:
         ax.set_ylabel(ylabel, fontsize=10, color=GRAY_MID)
     if xlabel:
@@ -153,10 +149,9 @@ def add_covid_shade(ax, ymin=None, ymax=None):
         ymin = ax.get_ylim()[0]
     if ymax is None:
         ymax = ax.get_ylim()[1]
-    ax.axvspan(2019.5, 2021.5, color="#E0E0E0", alpha=0.5, zorder=0)
-    mid_y = (ymin + ymax) / 2
-    ax.text(2020.5, ymax - 0.05 * (ymax - ymin), "COVID\ngap",
-            ha="center", va="top", fontsize=7, color=GRAY_MID, style="italic")
+    ax.axvspan(2019.5, 2021.5, color="#E0E0E0", alpha=0.4, zorder=0)
+    ax.text(2020.5, ymax, "COVID", ha="center", va="top",
+            fontsize=6, color="#AAAAAA", style="italic", zorder=1)
 
 
 def savefig(fig, name):
@@ -530,8 +525,6 @@ def chart08_mstep_troy_proficiency():
 
         ax.set_xticks(x)
         ax.set_xticklabels(years, fontsize=9)
-        ax.set_title(grade_label, fontsize=12, fontweight="bold",
-                     color=GRAY_DARK)
         ax.set_ylim(0, 85)
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
@@ -542,10 +535,6 @@ def chart08_mstep_troy_proficiency():
     axes[1].legend(fontsize=9, loc="upper right", framealpha=0.9,
                    edgecolor=GRAY_LIGHT)
 
-    fig.suptitle("Troy M-STEP Math Proficiency vs. State Average",
-                 fontsize=14, fontweight="bold", color=GRAY_DARK, y=1.02)
-    fig.text(0.5, 0.98, "Michigan M-STEP % proficient or advanced, grades 6 and 7",
-             ha="center", fontsize=10, color=GRAY_MID)
     fig.tight_layout()
     savefig(fig, "chart08_mstep_troy_proficiency.png")
 
@@ -665,6 +654,109 @@ def chart10_high_asian_peers_delta():
 
 
 # ======================================================================
+#  CHART 11: Rank-Shift Scatter (Pre vs Post COVID rank)
+# ======================================================================
+def chart11_rank_shift_scatter():
+    print("Chart 11: Rank-shift scatter...")
+    p = peers.copy()
+    p["pre_rank"] = p["pre_avg"].rank(ascending=False).astype(int)
+    p["post_rank"] = p["post_avg"].rank(ascending=False).astype(int)
+
+    troy_row = p[p["name"].str.contains("Troy School District")]
+    troy_pre = troy_row["pre_rank"].values[0]
+    troy_post = troy_row["post_rank"].values[0]
+
+    fig, ax = plt.subplots(figsize=(10.5, 6.8))
+    ax.scatter(p["pre_rank"], p["post_rank"], s=25, alpha=0.45,
+               color=CHART_BLUE, edgecolors="white", linewidths=0.3, zorder=3)
+    ax.plot([1, 296], [1, 296], ls="--", color=GRAY_LIGHT, lw=1, zorder=1)
+    ax.scatter([troy_pre], [troy_post], s=90, color=ACCENT_RED,
+               edgecolors="white", linewidths=1.2, zorder=5)
+    ax.annotate(f"Troy: #{troy_pre} → #{troy_post}\n(lost {troy_post - troy_pre} positions)",
+                xy=(troy_pre, troy_post), xytext=(troy_pre + 35, troy_post - 30),
+                fontsize=10, fontweight="bold", color=ACCENT_RED,
+                arrowprops=dict(arrowstyle="->", color=ACCENT_RED, lw=1.5))
+    ax.text(0.97, 0.05, "Rise in ranking\n(above diagonal)",
+            transform=ax.transAxes, ha="right", va="bottom",
+            fontsize=8, color=GRAY_MID, style="italic")
+    ax.text(0.03, 0.95, "Fall in ranking\n(below diagonal)",
+            transform=ax.transAxes, ha="left", va="top",
+            fontsize=8, color=GRAY_MID, style="italic")
+    ax.set_xlabel("Pre-COVID Rank (1 = highest math)", fontsize=10, color=GRAY_MID)
+    ax.set_ylabel("Post-COVID Rank (1 = highest math)", fontsize=10, color=GRAY_MID)
+    ax.set_xlim(0, 300)
+    ax.set_ylim(0, 300)
+    ax.invert_yaxis()
+    ax.invert_xaxis()
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["left"].set_color(GRAY_LIGHT)
+    ax.spines["bottom"].set_color(GRAY_LIGHT)
+    ax.tick_params(labelsize=9)
+    savefig(fig, "chart11_rank_shift_scatter.png")
+
+
+# ======================================================================
+#  CHART 12: MI Peer Bump Chart (Sankey-style ranking flow)
+# ======================================================================
+def chart12_mi_peer_bump():
+    print("Chart 12: MI peer bump chart...")
+    mi = df[df["sedaadmin"].isin(MI_PEERS.keys())].copy()
+    mi["label"] = mi["sedaadmin"].map(MI_PEERS)
+
+    g67 = mi[mi["grade"].isin([6, 7])]
+    pre = g67[g67["year"].between(2017, 2019)].groupby("label")["cs_mn_all"].mean()
+    post = g67[g67["year"].between(2022, 2025)].groupby("label")["cs_mn_all"].mean()
+
+    pre_rank = pre.rank(ascending=False).astype(int)
+    post_rank = post.rank(ascending=False).astype(int)
+
+    districts = pre_rank.sort_values().index.tolist()
+    n = len(districts)
+
+    fig, ax = plt.subplots(figsize=(8.5, 6.5))
+    ax.set_xlim(-0.3, 1.3)
+    ax.set_ylim(0.5, n + 0.5)
+    ax.invert_yaxis()
+    ax.axis("off")
+
+    ax.text(0, 0.2, "Pre-COVID (2017–19)", ha="center", fontsize=11,
+            fontweight="bold", color=GRAY_DARK, transform=ax.transData)
+    ax.text(1, 0.2, "Post-COVID (2022–25)", ha="center", fontsize=11,
+            fontweight="bold", color=GRAY_DARK, transform=ax.transData)
+
+    from matplotlib.path import Path
+    import matplotlib.patches as mpatches
+
+    for d in districts:
+        y1 = pre_rank[d]
+        y2 = post_rank[d]
+        is_troy = (d == "Troy")
+        clr = ACCENT_RED if is_troy else GRAY_LIGHT
+        lw = 3.5 if is_troy else 1.5
+        alpha = 1.0 if is_troy else 0.6
+
+        verts = [(0.08, y1), (0.35, y1), (0.65, y2), (0.92, y2)]
+        codes = [Path.MOVETO, Path.CURVE4, Path.CURVE4, Path.CURVE4]
+        path = Path(verts, codes)
+        patch = mpatches.FancyArrowPatch(
+            path=path, arrowstyle="-", color=clr, lw=lw, alpha=alpha, zorder=4 if is_troy else 2)
+        ax.add_patch(patch)
+
+        delta = int(y2 - y1)
+        delta_str = f"(↓{abs(delta)})" if delta > 0 else f"(↑{abs(delta)})" if delta < 0 else "(±0)"
+        weight = "bold" if is_troy else "normal"
+        tclr = ACCENT_RED if is_troy else GRAY_DARK
+
+        ax.text(-0.02, y1, f"{int(y1)}. {d}", ha="right", va="center",
+                fontsize=10, fontweight=weight, color=tclr)
+        ax.text(1.02, y2, f"{int(y2)}. {d}  {delta_str}", ha="left", va="center",
+                fontsize=10, fontweight=weight, color=tclr)
+
+    savefig(fig, "chart12_mi_peer_bump.png")
+
+
+# ======================================================================
 #  Main
 # ======================================================================
 if __name__ == "__main__":
@@ -681,5 +773,7 @@ if __name__ == "__main__":
     chart08_mstep_troy_proficiency()
     chart09_covid_delta_ranking()
     chart10_high_asian_peers_delta()
+    chart11_rank_shift_scatter()
+    chart12_mi_peer_bump()
 
     print(f"\nAll charts saved to {CHART_DIR}")
