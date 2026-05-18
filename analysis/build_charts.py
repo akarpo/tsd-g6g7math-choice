@@ -27,17 +27,17 @@ PEERS_CSV = BASE / "data" / "seda_math_peers_full.csv"
 CHART_DIR = BASE / "charts"
 CHART_DIR.mkdir(parents=True, exist_ok=True)
 
-# ── Color Palette ──────────────────────────────────────────────────────
+# ── Color Palette (matched to K-5 ELA deck) ───────────────────────────
 TROY_BLUE = "#1F3A5F"
-ACCENT_RED = "#C8302F"
+ACCENT_RED = "#B02121"
 ACCENT_GREEN = "#1F7A3D"
-ACCENT_ORANGE = "#B7791F"
-CHART_RED = "#DC3545"
-CHART_GREEN = "#28A745"
+ACCENT_ORANGE = "#CC6A11"
+CHART_RED = "#B02121"
+CHART_GREEN = "#1F7A3D"
 CHART_BLUE = "#4A90D9"
-CHART_AMBER = "#F0A030"
+CHART_AMBER = "#CC6A11"
 GRAY_DARK = "#333333"
-GRAY_MID = "#777777"
+GRAY_MID = "#707070"
 GRAY_LIGHT = "#CCCCCC"
 
 # Muted palette for non-Troy MI peer lines

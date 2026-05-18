@@ -31,20 +31,20 @@ OUTPUT  = DECK / "Troy_G6G7_Math_Executive_Summary.pptx"
 
 DECK.mkdir(parents=True, exist_ok=True)
 
-# -- colour palette -----------------------------------------------------------
+# -- colour palette (matched to K-5 ELA deck) --------------------------------
 TROY_BLUE      = RGBColor(0x1F, 0x3A, 0x5F)
-ACCENT_RED     = RGBColor(0xC8, 0x30, 0x2F)
+ACCENT_RED     = RGBColor(0xB0, 0x21, 0x21)
 ACCENT_GREEN   = RGBColor(0x1F, 0x7A, 0x3D)
-ACCENT_ORANGE  = RGBColor(0xB7, 0x79, 0x1F)
-LIGHT_GREEN    = RGBColor(0xE8, 0xF5, 0xEE)
+ACCENT_ORANGE  = RGBColor(0xCC, 0x6A, 0x11)
+LIGHT_GREEN    = RGBColor(0xE6, 0xF4, 0xE8)
 LIGHT_ORANGE   = RGBColor(0xFF, 0xF4, 0xE0)
-LIGHT_RED      = RGBColor(0xFB, 0xE7, 0xE6)
+LIGHT_RED      = RGBColor(0xFC, 0xE4, 0xE4)
 GRAY_BG        = RGBColor(0xEA, 0xED, 0xF2)   # slide background
-GRAY_LIGHT     = RGBColor(0xF2, 0xF4, 0xF7)
+GRAY_LIGHT     = RGBColor(0xEE, 0xEE, 0xEE)
 GRAY_DARK      = RGBColor(0x33, 0x33, 0x33)
-GRAY_MID       = RGBColor(0x77, 0x77, 0x77)
+GRAY_MID       = RGBColor(0x70, 0x70, 0x70)
 WHITE          = RGBColor(0xFF, 0xFF, 0xFF)
-SUBTITLE_CLR   = RGBColor(0xA0, 0xB4, 0xCC)
+SUBTITLE_CLR   = RGBColor(0xCC, 0xDD, 0xEE)
 DARK_GREEN_HDR = RGBColor(0x1F, 0x7A, 0x3D)
 DARK_RED_HDR   = RGBColor(0xA8, 0x20, 0x1A)
 
@@ -57,7 +57,7 @@ FOOTER_Y     = SLIDE_H - FOOTER_H           # 7.22"
 CONTENT_TOP  = HEADER_H                      # 0.95" — no gap
 CONTENT_BOT  = FOOTER_Y                      # 7.22"
 CONTENT_H    = CONTENT_BOT - CONTENT_TOP     # ~6.27"
-TOTAL_SLIDES = 19
+TOTAL_SLIDES = 20
 
 # Chart + panel standard positions
 CHART_L  = Inches(0.2)
@@ -963,7 +963,105 @@ def build_slide_19():
 
 
 # =============================================================================
-# Build all 19 slides
+# Slide 20 — Appendix: SEDA National Ranking (matches K-5 ELA slide 24)
+# =============================================================================
+def build_slide_20():
+    slide = new_slide(
+        "Appendix -- Troy Slid from Top 2% to Top 4% Nationally in G6+G7 Math",
+        "Year-by-year SEDA national ranking (all U.S. districts) + absolute level among 296 level-matched peers",
+        slide_num=20)
+
+    # -- LEFT PANEL: national ranking table --
+    add_rect(slide, Inches(0.3), Inches(0.95), Inches(5.2), Inches(4.6), LIGHT_RED)
+    add_text(slide, Inches(0.5), Inches(1.05), Inches(4.8), Inches(0.35),
+             "National G6+G7 Math ranking trajectory",
+             font_size=14, bold=True, color=ACCENT_RED)
+    add_text(slide, Inches(0.5), Inches(1.42), Inches(4.8), Inches(0.25),
+             "SEDA 2025.1 cs scale -- all U.S. districts with G6+G7 math data",
+             font_size=10, color=GRAY_MID)
+
+    nr_y = Inches(1.75)
+    nr_cols = [Inches(0.5), Inches(1.55), Inches(2.75), Inches(3.75)]
+    nr_hdrs = ["Year", "Score", "Rank", "Percentile"]
+    nr_ws = [Inches(0.95), Inches(1.1), Inches(0.95), Inches(1.4)]
+    add_rect(slide, Inches(0.4), nr_y, Inches(5.0), Inches(0.3), ACCENT_RED)
+    for x, h, w in zip(nr_cols, nr_hdrs, nr_ws):
+        add_text(slide, x, nr_y + Inches(0.04), w, Inches(0.25),
+                 h, font_size=11, bold=True, color=WHITE)
+
+    nr_data = [
+        ("2019", "+0.952", "173 / 8,751", "Top 2.0%", False),
+        ("2022", "+0.763", "229 / 8,215", "Top 2.8%", False),
+        ("2023", "+0.713", "269 / 7,190", "Top 3.7%", True),
+        ("2024", "+0.734", "294 / 6,995", "Top 4.2%", True),
+        ("2025", "+0.790", "240 / 5,896", "Top 4.1%", True),
+    ]
+    for i, (yr, score, rank, pct, warn) in enumerate(nr_data):
+        ry = nr_y + Inches(0.38) + i * Inches(0.42)
+        if i == 0:
+            add_rect(slide, Inches(0.4), ry - Inches(0.02),
+                     Inches(5.0), Inches(0.40), LIGHT_GREEN)
+        row_color = ACCENT_RED if warn else GRAY_DARK
+        add_text(slide, nr_cols[0], ry, nr_ws[0], Inches(0.35),
+                 yr, font_size=14, bold=True, color=row_color)
+        add_text(slide, nr_cols[1], ry, nr_ws[1], Inches(0.35),
+                 score, font_size=14, color=row_color, font_name="Consolas")
+        add_text(slide, nr_cols[2], ry, nr_ws[2], Inches(0.35),
+                 rank, font_size=12, color=row_color, font_name="Consolas")
+        pct_clr = ACCENT_GREEN if i == 0 else (ACCENT_RED if warn else GRAY_DARK)
+        add_text(slide, nr_cols[3], ry, nr_ws[3], Inches(0.35),
+                 pct, font_size=13, bold=True, color=pct_clr)
+
+    add_text(slide, Inches(0.5), Inches(4.22), Inches(4.8), Inches(0.30),
+             "Dropped ~70 national places since 2019",
+             font_size=16, bold=True, color=ACCENT_RED)
+    add_text(slide, Inches(0.5), Inches(4.58), Inches(4.8), Inches(0.85),
+             "Troy went from top 2% nationally to top 4%.\n"
+             "Score declined -0.162 grade levels.\n"
+             "2025 rank ticks up as score partially recovered.",
+             font_size=11, color=GRAY_DARK)
+
+    # -- RIGHT: scatter plot --
+    embed_chart(slide, "chart_seda_scatter_math.png",
+                Inches(5.7), Inches(0.95), Inches(7.3), Inches(4.6))
+
+    # -- BOTTOM STRIP: peer + MI context --
+    add_rect(slide, Inches(0.3), Inches(5.65), Inches(12.7), Inches(1.35), GRAY_LIGHT)
+
+    add_text(slide, Inches(0.5), Inches(5.7), Inches(5.0), Inches(0.25),
+             "Among 296 level-matched peers",
+             font_size=11, bold=True, color=TROY_BLUE)
+    add_text(slide, Inches(0.5), Inches(5.95), Inches(5.0), Inches(0.9),
+             "Pre-COVID rank:  76 / 296  (top quarter)\n"
+             "Post-COVID rank: 135 / 296  (bottom 55%)\n"
+             "70 districts leapfrogged Troy",
+             font_size=11, color=GRAY_DARK, font_name="Consolas")
+
+    add_text(slide, Inches(5.7), Inches(5.7), Inches(7.0), Inches(0.25),
+             "Michigan affluent peers -- score delta (2019 to 2025)",
+             font_size=11, bold=True, color=TROY_BLUE)
+
+    mi_peers = [
+        ("Birmingham", "+0.131", ACCENT_GREEN),
+        ("Northville", "+0.087", ACCENT_GREEN),
+        ("Bloomfield Hills", "+0.085", ACCENT_GREEN),
+        ("Troy SD", "-0.162", ACCENT_RED),
+        ("Novi", "-0.167", ACCENT_RED),
+        ("W. Bloomfield", "-0.181", ACCENT_RED),
+        ("Rochester", "-0.188", ACCENT_RED),
+        ("Walled Lake", "-0.197", ACCENT_RED),
+    ]
+    for i, (dist, shift, color) in enumerate(mi_peers):
+        mx = Inches(5.7) + (i % 4) * Inches(1.75)
+        my = Inches(5.98) + (i // 4) * Inches(0.35)
+        add_text(slide, mx, my, Inches(1.05), Inches(0.3),
+                 dist, font_size=9, color=GRAY_DARK)
+        add_text(slide, mx + Inches(1.05), my, Inches(0.65), Inches(0.3),
+                 shift, font_size=9, bold=True, color=color)
+
+
+# =============================================================================
+# Build all 20 slides
 # =============================================================================
 def main():
     build_slide_01()
@@ -985,6 +1083,7 @@ def main():
     build_slide_17()
     build_slide_18()
     build_slide_19()
+    build_slide_20()
 
     prs.save(str(OUTPUT))
     print(f"Deck saved to {OUTPUT}")

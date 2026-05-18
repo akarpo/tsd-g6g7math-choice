@@ -21,24 +21,24 @@ CHARTS_DIR = os.path.join(ROOT, "charts")
 SLIDES_DIR = os.path.join(ROOT, "slides")
 os.makedirs(SLIDES_DIR, exist_ok=True)
 
-# ── Color Palette ────────────────────────────────────────────────────────────
+# ── Color Palette (matched to K-5 ELA deck) ─────────────────────────────────
 TROY_BLUE      = "#1F3A5F"
-ACCENT_RED     = "#C8302F"
+ACCENT_RED     = "#B02121"
 ACCENT_GREEN   = "#1F7A3D"
-ACCENT_ORANGE  = "#B7791F"
-LIGHT_GREEN    = "#E8F5EE"
+ACCENT_ORANGE  = "#CC6A11"
+LIGHT_GREEN    = "#E6F4E8"
 LIGHT_ORANGE   = "#FFF4E0"
-LIGHT_RED      = "#FBE7E6"
+LIGHT_RED      = "#FCE4E4"
 GRAY_BG        = "#EAEDF2"
-GRAY_LIGHT     = "#F2F4F7"
+GRAY_LIGHT     = "#EEEEEE"
 GRAY_DARK      = "#333333"
-GRAY_MID       = "#777777"
-SUBTITLE_COLOR = "#A0B4CC"
+GRAY_MID       = "#707070"
+SUBTITLE_COLOR = "#CCDDEE"
 WHITE          = "#FFFFFF"
 
 DPI  = 192
 FIG_W, FIG_H = 10, 5.625   # 1920x1080 at 192 DPI
-TOTAL = 19
+TOTAL = 20
 
 
 # ── Helper Functions ─────────────────────────────────────────────────────────
@@ -927,6 +927,104 @@ def slide_19():
     save_slide(fig, 19)
 
 
+def slide_20():
+    """Appendix -- SEDA National Ranking (matches K-5 ELA slide 24 layout)."""
+    fig, ax = new_slide()
+    header(ax, "Appendix -- Troy Slid from Top 2% to Top 4% Nationally in G6+G7 Math",
+           "Year-by-year SEDA national ranking (all U.S. districts) + absolute level among 296 level-matched peers")
+    footer_bar(ax, 20)
+
+    # ── LEFT PANEL: national ranking table ──
+    lp_x, lp_w = 0.02, 0.39
+    lp_y, lp_h = 0.08, 0.57
+    rect(ax, lp_x, lp_y, lp_w, lp_h, LIGHT_RED)
+    accent_bar(ax, lp_x, lp_y + lp_h, lp_w, ACCENT_RED, 0.004)
+
+    text(ax, lp_x + 0.015, lp_y + lp_h - 0.035,
+         "National G6+G7 Math ranking trajectory",
+         fontsize=12, weight="bold", color=ACCENT_RED)
+    text(ax, lp_x + 0.015, lp_y + lp_h - 0.065,
+         "SEDA 2025.1 cs scale -- all U.S. districts with G6+G7 math data",
+         fontsize=7.5, color=GRAY_MID, style="italic")
+
+    # Table header
+    hdr_y = lp_y + lp_h - 0.10
+    cols = [lp_x + 0.015, lp_x + 0.07, lp_x + 0.15, lp_x + 0.27]
+    rect(ax, lp_x + 0.01, hdr_y - 0.035, lp_w - 0.02, 0.035, ACCENT_RED)
+    for cx, hdr in zip(cols, ["Year", "Score", "Rank", "Percentile"]):
+        text(ax, cx, hdr_y - 0.005, hdr,
+             fontsize=8, weight="bold", color="white")
+
+    rows = [
+        ("2019", "+0.952", "173 / 8,751", "Top 2.0%", False),
+        ("2022", "+0.763", "229 / 8,215", "Top 2.8%", False),
+        ("2023", "+0.713", "269 / 7,190", "Top 3.7%", True),
+        ("2024", "+0.734", "294 / 6,995", "Top 4.2%", True),
+        ("2025", "+0.790", "240 / 5,896", "Top 4.1%", True),
+    ]
+    for i, (yr, score, rank, pct, warn) in enumerate(rows):
+        ry = hdr_y - 0.07 - i * 0.045
+        clr = ACCENT_RED if warn else GRAY_DARK
+        if i == 0:
+            rect(ax, lp_x + 0.01, ry - 0.015, lp_w - 0.02, 0.045, LIGHT_GREEN)
+        text(ax, cols[0], ry, yr, fontsize=9, weight="bold", color=clr)
+        text(ax, cols[1], ry, score, fontsize=9, color=clr, family="monospace")
+        text(ax, cols[2], ry, rank, fontsize=8, color=clr, family="monospace")
+        pct_clr = ACCENT_GREEN if i == 0 else (ACCENT_RED if warn else GRAY_DARK)
+        text(ax, cols[3], ry, pct, fontsize=9, weight="bold", color=pct_clr)
+
+    # Callout below table
+    text(ax, lp_x + 0.015, lp_y + lp_h - 0.44,
+         "Dropped ~70 national places since 2019",
+         fontsize=11, weight="bold", color=ACCENT_RED)
+    text(ax, lp_x + 0.015, lp_y + lp_h - 0.50,
+         "Troy went from top 2% nationally to top 4%.\n"
+         "Score declined -0.162 grade levels.\n"
+         "2025 rank ticks up as score partially recovered.",
+         fontsize=9, color=GRAY_DARK)
+
+    # ── RIGHT PANEL: scatter plot ──
+    embed_chart(fig, chart_path("chart_seda_scatter_math.png"),
+                0.42, 0.08, 0.57, 0.57)
+
+    # ── BOTTOM STRIP: peer + MI context ──
+    bot_y, bot_h = 0.045, 0.18
+    rect(ax, 0.02, bot_y - 0.005, 0.96, bot_h, GRAY_LIGHT)
+
+    # Left: 296-peer context
+    text(ax, 0.035, bot_y + bot_h - 0.025,
+         "Among 296 level-matched peers",
+         fontsize=9, weight="bold", color=TROY_BLUE)
+    text(ax, 0.035, bot_y + bot_h - 0.07,
+         "Pre-COVID rank:  76 / 296  (top quarter)\n"
+         "Post-COVID rank: 135 / 296  (bottom 55%)\n"
+         "70 districts leapfrogged Troy",
+         fontsize=8, color=GRAY_DARK, family="monospace")
+
+    # Right: MI peers
+    text(ax, 0.44, bot_y + bot_h - 0.025,
+         "Michigan affluent peers -- score delta (2019 to 2025)",
+         fontsize=9, weight="bold", color=TROY_BLUE)
+
+    mi_peers = [
+        ("Birmingham",      "+0.131", ACCENT_GREEN),
+        ("Northville",      "+0.087", ACCENT_GREEN),
+        ("Bloomfield Hills", "+0.085", ACCENT_GREEN),
+        ("Troy SD",         "-0.162", ACCENT_RED),
+        ("Novi",            "-0.167", ACCENT_RED),
+        ("W. Bloomfield",   "-0.181", ACCENT_RED),
+        ("Rochester",       "-0.188", ACCENT_RED),
+        ("Walled Lake",     "-0.197", ACCENT_RED),
+    ]
+    for i, (dist, delta, clr) in enumerate(mi_peers):
+        mx = 0.44 + (i % 4) * 0.14
+        my = bot_y + bot_h - 0.07 - (i // 4) * 0.05
+        text(ax, mx, my, dist, fontsize=7, color=GRAY_DARK)
+        text(ax, mx + 0.09, my, delta, fontsize=7.5, weight="bold", color=clr)
+
+    save_slide(fig, 20)
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 def main():
@@ -951,6 +1049,7 @@ def main():
     slide_17()
     slide_18()
     slide_19()
+    slide_20()
 
     print(f"Done -- {TOTAL} slides saved.")
 
