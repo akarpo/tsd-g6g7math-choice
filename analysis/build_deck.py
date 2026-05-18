@@ -2,7 +2,7 @@
 """
 build_deck.py - Generate Troy School District G6-G7 Math Executive Summary deck.
 
-Produces a polished 22-slide PowerPoint at:
+Produces a polished 19-slide PowerPoint at:
   deck/Troy_G6G7_Math_Executive_Summary.pptx
 
 Visual style matched to the Troy SD K-5 ELA reference presentation:
@@ -57,7 +57,7 @@ FOOTER_Y     = SLIDE_H - FOOTER_H           # 7.22"
 CONTENT_TOP  = HEADER_H                      # 0.95" — no gap
 CONTENT_BOT  = FOOTER_Y                      # 7.22"
 CONTENT_H    = CONTENT_BOT - CONTENT_TOP     # ~6.27"
-TOTAL_SLIDES = 22
+TOTAL_SLIDES = 19
 
 # Chart + panel standard positions
 CHART_L  = Inches(0.2)
@@ -284,7 +284,7 @@ def build_slide_01():
 def build_slide_02():
     slide = new_slide(
         "The Question — and the One-Line Answer",
-        "Three independent lines of evidence converge on the same answer",
+        "G6+G7 Math: three independent lines of evidence converge",
         slide_num=2)
 
     # QUESTION — left block
@@ -426,7 +426,7 @@ def build_slide_04():
 def build_slide_05():
     slide = new_slide(
         "COVID Erased Troy's Math Advantage",
-        "Pre-COVID #76 → Post-COVID #135 among 296 level-matched peers",
+        "G6+G7 Math: Pre-COVID #76 to Post-COVID #135 among 296 level-matched peers",
         slide_num=5)
 
     embed_chart(slide, "chart11_rank_shift_scatter.png")
@@ -450,7 +450,7 @@ def build_slide_05():
 def build_slide_06():
     slide = new_slide(
         "MI Peer Leaderboard: Troy Holds at 4th in IM Window",
-        "Rank unchanged from 2023 to 2025 — no ground gained or lost",
+        "G6+G7 Math: rank unchanged from 2023 to 2025 — no ground gained or lost",
         slide_num=6)
 
     embed_chart(slide, "chart12_mi_peer_bump.png")
@@ -506,7 +506,7 @@ def build_slide_06():
 def build_slide_07():
     slide = new_slide(
         "IM-Window Recovery: Troy Mid-Pack Among 22 Districts",
-        "Troy +0.076 — 13th of 22 analysis districts (2023 → 2025)",
+        "G6+G7 Math: Troy +0.076 — 13th of 22 analysis districts (2023-2025)",
         slide_num=7)
 
     embed_chart(slide, "chart09_covid_delta_ranking.png")
@@ -531,7 +531,7 @@ def build_slide_07():
 def build_slide_08():
     slide = new_slide(
         "The Critical Test: Recovery During the IM Window",
-        "296-peer ranking of IM-window recovery — Troy in the bottom third",
+        "G6+G7 Math: 296-peer ranking of IM-window recovery — Troy in the bottom third",
         slide_num=8)
 
     embed_chart(slide, "chart04_level_matched_histogram.png")
@@ -555,7 +555,7 @@ def build_slide_08():
 def build_slide_09():
     slide = new_slide(
         "Among MI Peers, Troy Ranks 6th of 8 in Recovery",
-        "Novi leads with 1.6× more recovery; Troy trails the median",
+        "G6+G7 Math: Novi leads with 1.6x more recovery; Troy trails the median",
         slide_num=9)
 
     # Slightly narrower chart to fit the wider table panel
@@ -697,8 +697,8 @@ def build_slide_12():
 # =============================================================================
 def build_slide_13():
     slide = new_slide(
-        "IM-Window Recovery by Subgroup (2023 → 2025)",
-        "Asian leads combined recovery; White lags peers",
+        "IM-Window Recovery by Subgroup (2023-2025)",
+        "G6+G7 Math: Asian leads combined recovery; White lags peers",
         slide_num=13)
 
     embed_chart(slide, "chart07_troy_subgroup_waterfall.png")
@@ -779,116 +779,22 @@ def build_slide_14():
 # =============================================================================
 # Slide 15 — San Francisco
 # =============================================================================
+# =============================================================================
+# Slide 15 — The 50% Algebra 1 Claim
+# =============================================================================
 def build_slide_15():
     slide = new_slide(
-        "San Francisco: 12 Years of Detracking, Then Reversal",
-        "SFUSD eliminated Algebra 1 in 8th grade in 2014 — reversed March 2026",
+        "The ‘50% Algebra 1’ Claim - Course Access is not Achievement",
+        "G6+G7 Math: course enrollment is not an achievement metric",
         slide_num=15)
 
     findings = [
-        (LIGHT_RED, ACCENT_RED,
-         "1", "Achievement gaps WIDENED: Hispanic-White gap expanded "
-         "31 points (vs 5 statewide)"),
-        (LIGHT_ORANGE, ACCENT_ORANGE,
-         "2", "AP math enrollment DECLINED 15%, driven by "
-         "Asian/Pacific Islander students"),
-        (LIGHT_RED, ACCENT_RED,
-         "3", "Board voted March 2026 to RESTORE Algebra 1 in "
-         "8th grade at all schools"),
-    ]
-
-    box_y = Inches(1.15)
-    box_h = Inches(1.4)
-    gap = Inches(0.15)
-
-    for i, (bg, bar_clr, num, text) in enumerate(findings):
-        ry = box_y + Inches(i * (1.4 + 0.15))
-        add_rect(slide, Inches(0.4), ry, Inches(12.5), box_h, bg)
-        accent_bar(slide, Inches(0.4), ry, Inches(12.5), bar_clr)
-        # Number circle
-        cx = Inches(0.7)
-        cy_c = ry + Inches(0.35)
-        add_rect(slide, cx, cy_c, Inches(0.45), Inches(0.45), bar_clr)
-        add_text(slide, cx, cy_c, Inches(0.45), Inches(0.45),
-                 num, font_size=16, bold=True, color=WHITE, alignment='center', valign='middle')
-        # Text
-        add_text(slide, Inches(1.35), ry + Inches(0.2), Inches(11.3), box_h - Inches(0.3),
-                 text, font_size=16, color=GRAY_DARK)
-
-    # Bottom callout bar
-    callout_y = box_y + Inches(3 * (1.4 + 0.15)) + Inches(0.15)
-    add_rect(slide, Inches(0.4), callout_y, Inches(12.5), Inches(0.8), TROY_BLUE)
-    add_text(slide, Inches(0.7), callout_y + Inches(0.1), Inches(12.0), Inches(0.6),
-             "Troy is replicating a strategy with a well-documented failure pattern",
-             font_size=16, bold=True, color=WHITE, valign='middle')
-
-
-# =============================================================================
-# Slide 16 — Cambridge
-# =============================================================================
-def build_slide_16():
-    slide = new_slide(
-        "Cambridge, MA: Detracked 2017–2019, Now Reversing",
-        "A second major detracking experiment now being reversed",
-        slide_num=16)
-
-    col_w = Inches(6.1)
-    col_h = Inches(5.5)
-    gap = Inches(0.3)
-    y = Inches(1.1)
-
-    # Left panel — LIGHT_ORANGE
-    x1 = Inches(0.4)
-    ix1, iy1, iw1, ih1 = panel_box(slide, x1, y, col_w, col_h, LIGHT_ORANGE)
-    add_rect(slide, ix1, iy1, iw1, Inches(0.45), ACCENT_ORANGE)
-    add_text(slide, ix1 + Inches(0.1), iy1 + Inches(0.05), iw1 - Inches(0.2), Inches(0.4),
-             "What They Did", font_size=16, bold=True, color=WHITE)
-    add_multiline(slide, ix1, iy1 + Inches(0.65), iw1, ih1 - Inches(0.7), [
-        "Eliminated accelerated math tracks across all "
-        "middle schools between 2017 and 2019.",
-        "",
-        "Goal: address racial disparities in advanced "
-        "course enrollment by placing all students in "
-        "the same heterogeneous math classes.",
-        "",
-        "Mirrored SFUSD’s rationale: equal access "
-        "would close gaps.",
-    ], font_size=15, color=GRAY_DARK, space_after=4)
-
-    # Right panel — LIGHT_RED
-    x2 = x1 + col_w + gap
-    ix2, iy2, iw2, ih2 = panel_box(slide, x2, y, col_w, col_h, LIGHT_RED)
-    add_rect(slide, ix2, iy2, iw2, Inches(0.45), ACCENT_RED)
-    add_text(slide, ix2 + Inches(0.1), iy2 + Inches(0.05), iw2 - Inches(0.2), Inches(0.4),
-             "What Happened", font_size=16, bold=True, color=WHITE)
-    add_multiline(slide, ix2, iy2 + Inches(0.65), iw2, ih2 - Inches(0.7), [
-        "COVID obscured early results, but post-pandemic "
-        "data showed persistent achievement gaps.",
-        "",
-        "District is now reversing course and restoring "
-        "algebra pathways in 8th grade.",
-        "",
-        "Advanced students left for private schools "
-        "or after-school tutoring — exacerbating the "
-        "very inequities the policy aimed to fix.",
-    ], font_size=15, color=GRAY_DARK, space_after=4)
-
-
-# =============================================================================
-# Slide 17 — The 50% Algebra 1 Claim
-# =============================================================================
-def build_slide_17():
-    slide = new_slide(
-        "The ‘50% Algebra 1’ Claim — Course Access ≠ Achievement",
-        "Course enrollment is not an achievement metric",
-        slide_num=17)
-
-    findings = [
-        ("1", "SFUSD made the identical claim for a decade before test scores "
-         "revealed no improvement"),
-        ("2", "SEDA shows Troy rose +0.076 in the IM window (2023→2025) "
-         "but remains far below pre-COVID +0.937"),
-        ("3", "The comparison is not past Troy enrollment — it’s what "
+        ("1", "Enrollment is not achievement. More students enrolled in "
+         "Algebra 1 does not mean more have mastered prerequisite skills. "
+         "Course access and course readiness are different metrics."),
+        ("2", "SEDA shows Troy G6+G7 rose +0.076 in the IM window "
+         "(2023-2025) but remains far below pre-COVID +0.937"),
+        ("3", "The comparison is not past Troy enrollment - it is what "
          "tracked peers achieve now"),
     ]
 
@@ -911,13 +817,13 @@ def build_slide_17():
 
 
 # =============================================================================
-# Slide 18 — What High-Performing Districts Do
+# Slide 16 — What High-Performing Districts Do
 # =============================================================================
-def build_slide_18():
+def build_slide_16():
     slide = new_slide(
         "What High-Performing Math Districts Do Differently",
-        "Among 107 high-Asian (≥20%) peers, many recovered with tracking intact",
-        slide_num=18)
+        "G6+G7 Math: among 107 high-Asian (>=20%) peers, many recovered with tracking intact",
+        slide_num=16)
 
     embed_chart(slide, "chart10_high_asian_peers_delta.png")
 
@@ -941,78 +847,21 @@ def build_slide_18():
 
 
 # =============================================================================
-# Slide 19 — IM Evidence Gaps
+# Slide 17 — Conclusions
 # =============================================================================
-def build_slide_19():
-    slide = new_slide(
-        "Illustrative Mathematics: Evidence Gaps",
-        "No published evidence of IM success in a district like Troy",
-        slide_num=19)
-
-    # Table header
-    tbl_y = Inches(1.15)
-    tbl_x = Inches(0.4)
-    tbl_w = Inches(12.5)
-    row_h = Inches(0.5)
-
-    col_x = [tbl_x + Inches(0.15), tbl_x + Inches(3.8), tbl_x + Inches(7.0)]
-    col_w_vals = [Inches(3.5), Inches(3.0), Inches(5.3)]
-
-    add_rect(slide, tbl_x, tbl_y, tbl_w, row_h, TROY_BLUE)
-    headers = ["District", "Result", "Comparability"]
-    for i, h in enumerate(headers):
-        add_text(slide, col_x[i], tbl_y + Inches(0.05), col_w_vals[i], row_h,
-                 h, font_size=14, bold=True, color=WHITE)
-
-    table_data = [
-        ("NYC District 11 (Bronx)", "25.8% → 50.6%",
-         "High-poverty, low-baseline; not comparable to Troy"),
-        ("Fort Zumwalt (MO)", "Effect size 0.16 SD",
-         "Modest improvement; comparable to general instructional improvement"),
-        ("Philadelphia", "Process study only",
-         "No student outcomes data published"),
-    ]
-
-    for i, (district, result, note) in enumerate(table_data):
-        ry = tbl_y + row_h + Inches(i * 0.95)
-        bg = WHITE if i % 2 == 0 else GRAY_LIGHT
-        add_rect(slide, tbl_x, ry, tbl_w, Inches(0.9), bg)
-        add_text(slide, col_x[0], ry + Inches(0.15), col_w_vals[0], Inches(0.6),
-                 district, font_size=14, bold=True, color=GRAY_DARK)
-        add_text(slide, col_x[1], ry + Inches(0.15), col_w_vals[1], Inches(0.6),
-                 result, font_size=14, color=GRAY_DARK)
-        add_text(slide, col_x[2], ry + Inches(0.15), col_w_vals[2], Inches(0.6),
-                 note, font_size=13, color=GRAY_MID)
-
-    # Bottom callout
-    callout_y = tbl_y + row_h + Inches(3 * 0.95) + Inches(0.2)
-    add_rect(slide, tbl_x, callout_y, tbl_w, Inches(1.0), LIGHT_ORANGE)
-    accent_bar(slide, tbl_x, callout_y, tbl_w, ACCENT_ORANGE)
-    add_text(slide, tbl_x + Inches(0.2), callout_y + Inches(0.15), tbl_w - Inches(0.4), Inches(0.7),
-             "No published evidence of IM success in an affluent, high-performing, "
-             "high-Asian district like Troy. The existing studies all involve "
-             "high-poverty, low-baseline populations.",
-             font_size=14, bold=True, color=ACCENT_ORANGE)
-
-
-# =============================================================================
-# Slide 20 — Conclusions
-# =============================================================================
-def build_slide_20():
+def build_slide_17():
     slide = new_slide(
         "Conclusions",
-        "Five findings from three independent lines of evidence",
-        slide_num=20)
+        "G6+G7 Math: four findings from SEDA and M-STEP data",
+        slide_num=17)
 
     conclusions = [
         (ACCENT_ORANGE, LIGHT_ORANGE,
          "Troy has NOT outperformed — 6th of 8 MI peers, 197/295 nationally"),
         (ACCENT_RED, LIGHT_RED,
-         "G7 Asian most concerning — only subgroup still declining (−0.028)"),
+         "G7 Asian most concerning — only subgroup still declining (-0.028)"),
         (ACCENT_GREEN, LIGHT_GREEN,
          "G6 Asian a bright spot — strongest recovery (+0.312), #2 MI peers"),
-        (ACCENT_ORANGE, LIGHT_ORANGE,
-         "Detracking evidence base against — SFUSD, Cambridge reversed"),
         (ACCENT_ORANGE, LIGHT_ORANGE,
          "Recovery real but slow — all subgroups still below pre-COVID"),
     ]
@@ -1040,13 +889,13 @@ def build_slide_20():
 
 
 # =============================================================================
-# Slide 21 — Methodology
+# Slide 18 — Methodology
 # =============================================================================
-def build_slide_21():
+def build_slide_18():
     slide = new_slide(
         "Methodology",
-        "SEDA 2025.1 (Stanford CEPA) — NAEP-anchored cross-state comparison",
-        slide_num=21)
+        "G6+G7 Math — SEDA 2025.1 (Stanford CEPA) — NAEP-anchored cross-state comparison",
+        slide_num=18)
 
     sections = [
         ("Primary Metric",
@@ -1081,27 +930,21 @@ def build_slide_21():
 
 
 # =============================================================================
-# Slide 22 — References
+# Slide 19 — References
 # =============================================================================
-def build_slide_22():
+def build_slide_19():
     slide = new_slide(
         "References",
-        "Primary data sources and research",
-        slide_num=22)
+        "Primary data sources",
+        slide_num=19)
 
     references = [
-        "SEDA 2025.1 — Stanford Center for Education Policy Analysis (CEPA). "
-        "educationdata.urban.org / edopportunity.org",
-        "Education Scorecard 2026 — Harvard-Stanford-Dartmouth collaboration. "
+        "SEDA 2025.1 -- Stanford Center for Education Policy Analysis (CEPA). "
+        "edopportunity.org",
+        "Education Scorecard 2026 -- Harvard-Stanford-Dartmouth collaboration. "
         "educationscorecard.org",
-        "MI School Data / M-STEP — Michigan Department of Education. "
+        "MI School Data / M-STEP -- Michigan Department of Education. "
         "mischooldata.org",
-        "Dee, T., Huffaker, E., & Novicoff, S. (2025). “Detracking and "
-        "Advanced Course-Taking in San Francisco.” SFUSD study.",
-        "Education Next — SFUSD detracking analysis and coverage of the "
-        "March 2026 board reversal vote.",
-        "Brookings Institution — Detracking evidence review. Comprehensive "
-        "survey of heterogeneous grouping outcomes.",
     ]
 
     y = Inches(1.15)
@@ -1120,7 +963,7 @@ def build_slide_22():
 
 
 # =============================================================================
-# Build all 22 slides
+# Build all 19 slides
 # =============================================================================
 def main():
     build_slide_01()
@@ -1142,9 +985,6 @@ def main():
     build_slide_17()
     build_slide_18()
     build_slide_19()
-    build_slide_20()
-    build_slide_21()
-    build_slide_22()
 
     prs.save(str(OUTPUT))
     print(f"Deck saved to {OUTPUT}")

@@ -38,7 +38,7 @@ WHITE          = "#FFFFFF"
 
 DPI  = 192
 FIG_W, FIG_H = 10, 5.625   # 1920x1080 at 192 DPI
-TOTAL = 22
+TOTAL = 19
 
 
 # ── Helper Functions ─────────────────────────────────────────────────────────
@@ -175,7 +175,7 @@ def slide_02():
     """The Question -- and the One-Line Answer."""
     fig, ax = new_slide()
     header(ax, "The Question — and the One-Line Answer",
-           "Three independent lines of evidence converge on the same answer")
+           "G6+G7 Math: three independent lines of evidence converge")
     footer_bar(ax, 2)
 
     # Question label
@@ -306,7 +306,7 @@ def slide_05():
     """Troy Fell 59 Places in the National Math Rankings."""
     fig, ax = new_slide()
     header(ax, "COVID Erased Troy's Math Advantage",
-           "Pre-COVID #76 → Post-COVID #135 among 296 level-matched peers")
+           "G6+G7 Math: Pre-COVID #76 → Post-COVID #135 among 296 level-matched peers")
     footer_bar(ax, 5)
 
     embed_chart(fig, chart_path("chart11_rank_shift_scatter.png"),
@@ -348,7 +348,7 @@ def slide_06():
     """MI Peer Leaderboard: Troy Fell From 2nd to 4th."""
     fig, ax = new_slide()
     header(ax, "MI Peer Leaderboard: Troy Holds at 4th in IM Window",
-           "Rank unchanged from 2023 to 2025 — no ground gained or lost")
+           "G6+G7 Math: rank unchanged from 2023 to 2025 — no ground gained or lost")
     footer_bar(ax, 6)
 
     embed_chart(fig, chart_path("chart12_mi_peer_bump.png"),
@@ -399,7 +399,7 @@ def slide_07():
     """The Post-COVID Decline Hit Troy Hard in Math."""
     fig, ax = new_slide()
     header(ax, "IM-Window Recovery: Troy Mid-Pack Among 22 Districts",
-           "Troy +0.076 — 13th of 22 analysis districts (2023 → 2025)")
+           "G6+G7 Math: Troy +0.076 — 13th of 22 analysis districts (2023-2025)")
     footer_bar(ax, 7)
 
     embed_chart(fig, chart_path("chart09_covid_delta_ranking.png"),
@@ -439,7 +439,7 @@ def slide_08():
     """The Critical Test: Recovery During the IM Window."""
     fig, ax = new_slide()
     header(ax, "The Critical Test: Recovery During the IM Window",
-           "296-peer ranking of IM-window recovery — Troy in the bottom third")
+           "G6+G7 Math: 296-peer ranking of IM-window recovery — Troy in the bottom third")
     footer_bar(ax, 8)
 
     embed_chart(fig, chart_path("chart04_level_matched_histogram.png"),
@@ -481,7 +481,7 @@ def slide_09():
     """Among MI Peers, Troy Ranks 6th of 8."""
     fig, ax = new_slide()
     header(ax, "Among MI Peers, Troy Ranks 6th of 8",
-           "Novi leads with 1.6× more recovery; Troy trails the median")
+           "G6+G7 Math: Novi leads with 1.6x more recovery; Troy trails the median")
     footer_bar(ax, 9)
 
     embed_chart(fig, chart_path("chart03_im_window_ranking.png"),
@@ -650,8 +650,8 @@ def slide_12():
 def slide_13():
     """Every Subgroup Declined -- Recovery Is Uneven."""
     fig, ax = new_slide()
-    header(ax, "IM-Window Recovery by Subgroup (2023 → 2025)",
-           "Asian leads combined recovery; White lags peers")
+    header(ax, "IM-Window Recovery by Subgroup (2023-2025)",
+           "G6+G7 Math: Asian leads combined recovery; White lags peers")
     footer_bar(ax, 13)
 
     embed_chart(fig, chart_path("chart07_troy_subgroup_waterfall.png"),
@@ -732,117 +732,21 @@ def slide_14():
 
 
 def slide_15():
-    """San Francisco: 12 Years of Detracking, Then Reversal."""
-    fig, ax = new_slide()
-    header(ax, "San Francisco: 12 Years of Detracking, Then Reversal",
-           "SFUSD eliminated Algebra 1 in 8th grade in 2014 — reversed March 2026")
-    footer_bar(ax, 15)
-
-    findings = [
-        (ACCENT_RED, LIGHT_RED,
-         "Achievement gaps WIDENED",
-         "Hispanic–White gap expanded 31 points (vs 5 statewide). "
-         "The equity rationale failed on its own terms."),
-        (ACCENT_ORANGE, LIGHT_ORANGE,
-         "AP math enrollment DECLINED 15%",
-         "Driven by Asian/Pacific Islander students. Fewer students "
-         "reached advanced coursework."),
-        (ACCENT_RED, LIGHT_RED,
-         "Board voted March 2026 to RESTORE Algebra 1",
-         "After 12 years, SFUSD reversed course. The longest-running "
-         "U.S. detracking experiment ended in retreat."),
-    ]
-    panel_h = 0.23
-    gap = 0.02
-    y_top = 0.66
-    for i, (accent_clr, bg_clr, heading, detail) in enumerate(findings):
-        py_f = y_top - i * (panel_h + gap)
-        rect(ax, 0.03, py_f, 0.94, panel_h, bg_clr)
-        accent_bar(ax, 0.03, py_f + panel_h, 0.94, accent_clr, 0.005)
-        text(ax, 0.06, py_f + panel_h - 0.04, heading,
-             fontsize=15, weight="bold", color=accent_clr)
-        text(ax, 0.06, py_f + panel_h - 0.11, detail,
-             fontsize=12, color=GRAY_DARK, wrap_width=90)
-
-    # Bottom callout bar
-    rect(ax, 0.03, 0.05, 0.94, 0.08, TROY_BLUE)
-    text(ax, 0.50, 0.09,
-         "Troy is replicating a strategy with a well-documented failure pattern",
-         fontsize=13, color="white", ha="center", va="center", weight="bold")
-
-    save_slide(fig, 15)
-
-
-def slide_16():
-    """Cambridge: Detracked 2017-2019, Now Reversing."""
-    fig, ax = new_slide()
-    header(ax, "Cambridge: Detracked 2017–2019, Now Reversing",
-           "A second major detracking experiment being reversed")
-    footer_bar(ax, 16)
-
-    col_w = 0.46
-    gap = 0.03
-    col_h = 0.82
-    py = 0.05
-    x1 = 0.02
-    x2 = x1 + col_w + gap
-
-    # Left panel -- LIGHT_ORANGE
-    rect(ax, x1, py, col_w, col_h, LIGHT_ORANGE)
-    accent_bar(ax, x1, py + col_h, col_w, ACCENT_ORANGE, 0.005)
-    section_header_rect(ax, x1 + 0.01, py + col_h - 0.07, col_w - 0.02, 0.05,
-                        "What They Did", bg=ACCENT_ORANGE, fontsize=12)
-    text(ax, x1 + 0.02, py + col_h - 0.12,
-         "Eliminated accelerated math\n"
-         "tracks to address racial\n"
-         "disparities in advanced\n"
-         "course enrollment.\n\n"
-         "All students placed in the\n"
-         "same math class regardless\n"
-         "of prior achievement.\n\n"
-         "Implemented 2017–2019.\n"
-         "COVID hit during early\n"
-         "rollout, obscuring results.",
-         fontsize=14, color=GRAY_DARK)
-
-    # Right panel -- LIGHT_RED
-    rect(ax, x2, py, col_w, col_h, LIGHT_RED)
-    accent_bar(ax, x2, py + col_h, col_w, ACCENT_RED, 0.005)
-    section_header_rect(ax, x2 + 0.01, py + col_h - 0.07, col_w - 0.02, 0.05,
-                        "What Happened", bg=ACCENT_RED, fontsize=12)
-    text(ax, x2 + 0.02, py + col_h - 0.12,
-         "Achievement gaps persisted.\n\n"
-         "Advanced students\n"
-         "underserved — families\n"
-         "sought outside tutoring.\n\n"
-         "District now reversing\n"
-         "course, restoring algebra\n"
-         "to 8th grade.\n\n"
-         "Same pattern as SFUSD:\n"
-         "equity goal unmet, advanced\n"
-         "students harmed, eventual\n"
-         "policy reversal.",
-         fontsize=14, color=GRAY_DARK)
-
-    save_slide(fig, 16)
-
-
-def slide_17():
     """The '50% Algebra 1' Claim."""
     fig, ax = new_slide()
     header(ax, "The ‘50% Algebra 1’ Claim",
-           "Course enrollment is not an achievement metric")
-    footer_bar(ax, 17)
+           "G6+G7 Math: course enrollment is not an achievement metric")
+    footer_bar(ax, 15)
 
     findings = [
         (ACCENT_ORANGE, LIGHT_ORANGE,
-         "SFUSD made the identical claim",
-         "For a decade SFUSD cited rising enrollment in gateway courses. "
-         "Test scores eventually revealed no improvement. "
-         "Enrollment =/= mastery."),
+         "Enrollment is not achievement",
+         "More students enrolled in Algebra 1 does not mean more students "
+         "have mastered prerequisite skills. Course access and course "
+         "readiness are different metrics."),
         (ACCENT_ORANGE, LIGHT_ORANGE,
-         "Troy’s SEDA scores tell a different story",
-         "G6+G7 math rose +0.076 in the IM window (2023→2025) but remains "
+         "SEDA scores tell a different story",
+         "G6+G7 math rose +0.076 in the IM window (2023-2025) but remains "
          "far below pre-COVID +0.937. Recovery is real but slow. "
          "More students in Algebra 1 does not mean more are ready for it."),
         (ACCENT_ORANGE, LIGHT_ORANGE,
@@ -863,15 +767,15 @@ def slide_17():
         text(ax, 0.06, py_f + panel_h - 0.12, detail,
              fontsize=12, color=GRAY_DARK, wrap_width=90)
 
-    save_slide(fig, 17)
+    save_slide(fig, 15)
 
 
-def slide_18():
+def slide_16():
     """What High-Performing Districts Do Differently."""
     fig, ax = new_slide()
     header(ax, "What High-Performing Districts Do Differently",
-           "Many California and NJ districts recovered with tracking intact")
-    footer_bar(ax, 18)
+           "G6+G7 Math: among 107 high-Asian (>=20%) peers, many recovered with tracking intact")
+    footer_bar(ax, 16)
 
     embed_chart(fig, chart_path("chart10_high_asian_peers_delta.png"),
                 0.01, 0.05, 0.64, 0.87)
@@ -901,62 +805,15 @@ def slide_18():
          "performing peers.",
          fontsize=12, color=GRAY_DARK)
 
-    save_slide(fig, 18)
+    save_slide(fig, 16)
 
 
-def slide_19():
-    """Illustrative Mathematics: Evidence Gaps."""
-    fig, ax = new_slide()
-    header(ax, "Illustrative Mathematics: Evidence Gaps",
-           "No published evidence of IM success in a district like Troy")
-    footer_bar(ax, 19)
-
-    # Table header
-    th_y = 0.84
-    th_h = 0.06
-    section_header_rect(ax, 0.03, th_y, 0.94, th_h,
-                        "   District                            Result"
-                        "                              Note",
-                        fontsize=10)
-
-    rows = [
-        ("NYC District 11 (Bronx)", "25.8% → 50.6%",
-         "High-poverty, low-baseline—not comparable to Troy"),
-        ("Fort Zumwalt (MO)",       "Effect size 0.16 SD",
-         "Modest, comparable to general improvement trend"),
-        ("Philadelphia",            "Process study only",
-         "No student outcomes data published"),
-    ]
-    row_h = 0.18
-    for i, (district, result, note) in enumerate(rows):
-        ry = th_y - (i + 1) * row_h
-        bg = GRAY_LIGHT if i % 2 == 0 else WHITE
-        rect(ax, 0.03, ry, 0.94, row_h, bg)
-        text(ax, 0.05, ry + row_h / 2 + 0.01, district,
-             fontsize=11, weight="bold", color=GRAY_DARK, va="center")
-        text(ax, 0.35, ry + row_h / 2 + 0.01, result,
-             fontsize=11, color=GRAY_DARK, va="center", family="monospace")
-        text(ax, 0.60, ry + row_h / 2 + 0.01, note,
-             fontsize=10, color=GRAY_MID, va="center", wrap_width=40)
-
-    # Bottom callout
-    rect(ax, 0.03, 0.06, 0.94, 0.11, LIGHT_ORANGE)
-    accent_bar(ax, 0.03, 0.17, 0.94, ACCENT_ORANGE, 0.005)
-    text(ax, 0.50, 0.115,
-         "No published evidence of IM success in an affluent, "
-         "high-performing, high-Asian district like Troy",
-         fontsize=12, weight="bold", color=ACCENT_ORANGE,
-         ha="center", va="center", wrap_width=90)
-
-    save_slide(fig, 19)
-
-
-def slide_20():
+def slide_17():
     """Conclusions."""
     fig, ax = new_slide()
     header(ax, "Conclusions",
-           "Five findings from three independent lines of evidence")
-    footer_bar(ax, 20)
+           "G6+G7 Math: four findings from SEDA and M-STEP data")
+    footer_bar(ax, 17)
 
     conclusions = [
         (ACCENT_ORANGE, LIGHT_ORANGE,
@@ -965,22 +822,18 @@ def slide_20():
          "6th of 8 MI peers. Rank 197 of 295 nationally."),
         (ACCENT_RED, LIGHT_RED,
          "G7 Asian is the most concerning subgroup",
-         "G7 Asian is the only subgroup still declining (−0.028) in the "
+         "G7 Asian is the only subgroup still declining (-0.028) in the "
          "IM window. High-Asian peers with tracking recover strongly."),
         (ACCENT_GREEN, LIGHT_GREEN,
          "G6 Asian shows strong IM-window recovery",
          "G6 Asian gained +0.312 — strongest of any Troy subgroup and "
          "#2 among MI peers. G6 is a bright spot."),
         (ACCENT_ORANGE, LIGHT_ORANGE,
-         "Detracking evidence base is against this approach",
-         "SFUSD (12 years) and Cambridge both reversed. Gaps widened, "
-         "not narrowed."),
-        (ACCENT_ORANGE, LIGHT_ORANGE,
          "Recovery is real but slow — gap remains",
          "Troy is recovering (+0.076), but not closing the deficit "
          "COVID opened. All subgroups still below pre-COVID levels."),
     ]
-    row_h = 0.16
+    row_h = 0.19
     y_top = 0.88
     for i, (clr, bg, heading, detail) in enumerate(conclusions):
         cy = y_top - i * row_h
@@ -997,15 +850,15 @@ def slide_20():
         text(ax, 0.09, cy - 0.06, detail,
              fontsize=11, color=GRAY_DARK, wrap_width=80)
 
-    save_slide(fig, 20)
+    save_slide(fig, 17)
 
 
-def slide_21():
+def slide_18():
     """Methodology."""
     fig, ax = new_slide()
     header(ax, "Methodology",
-           "SEDA 2025.1 (Stanford CEPA)")
-    footer_bar(ax, 21)
+           "G6+G7 Math — SEDA 2025.1 (Stanford CEPA)")
+    footer_bar(ax, 18)
 
     sections = [
         ("Data Source",
@@ -1037,35 +890,26 @@ def slide_21():
         line_h = max(0.06, 0.05 * n_lines + 0.035)
         sy -= line_h + 0.02
 
-    save_slide(fig, 21)
+    save_slide(fig, 18)
 
 
-def slide_22():
+def slide_19():
     """References."""
     fig, ax = new_slide()
     header(ax, "References",
-           "Primary data sources and research")
-    footer_bar(ax, 22)
+           "Primary data sources")
+    footer_bar(ax, 19)
 
     refs = [
         ("SEDA 2025.1",
          "Stanford Center for Education Policy Analysis. "
          "edopportunity.org. Reardon et al."),
         ("Education Scorecard 2026",
-         "Harvard–Stanford–Dartmouth. Demographic-adjusted "
+         "Harvard-Stanford-Dartmouth. Demographic-adjusted "
          "gain methodology."),
         ("MI School Data / M-STEP",
          "Michigan Department of Education. mischooldata.org. "
          "State assessment proficiency rates."),
-        ("Dee, Huffaker & Novicoff (2025)",
-         "\"The Effects of San Francisco’s Math Course Sequence "
-         "Reform.\" SFUSD detracking study."),
-        ("Education Next / SFUSD Analysis",
-         "Detracking policy analysis including AP enrollment "
-         "trends and achievement gap data."),
-        ("Brookings Institution",
-         "Detracking evidence review. Cross-district analysis "
-         "of tracking vs. heterogeneous grouping outcomes."),
     ]
     sy = 0.87
     row_h = 0.13
@@ -1080,7 +924,7 @@ def slide_22():
         text(ax, 0.08, ry - 0.055, desc,
              fontsize=10, color=GRAY_DARK, wrap_width=85)
 
-    save_slide(fig, 22)
+    save_slide(fig, 19)
 
 
 # ── Main ─────────────────────────────────────────────────────────────────────
@@ -1107,9 +951,6 @@ def main():
     slide_17()
     slide_18()
     slide_19()
-    slide_20()
-    slide_21()
-    slide_22()
 
     print(f"Done -- {TOTAL} slides saved.")
 
