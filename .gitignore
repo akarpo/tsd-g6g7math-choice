@@ -1,0 +1,4 @@
+seda_admindist_long_cs_2025.1.csv
+*.pyc
+__pycache__/
+.DS_Store
