@@ -2,7 +2,7 @@
 """
 build_deck.py - Generate Troy School District G6-G7 Math Executive Summary deck.
 
-Produces a polished 19-slide PowerPoint at:
+Produces a polished 16-slide PowerPoint at:
   deck/Troy_G6G7_Math_Executive_Summary.pptx
 
 Visual style matched to the Troy SD K-5 ELA reference presentation:
@@ -57,7 +57,7 @@ FOOTER_Y     = SLIDE_H - FOOTER_H           # 7.22"
 CONTENT_TOP  = HEADER_H                      # 0.95" — no gap
 CONTENT_BOT  = FOOTER_Y                      # 7.22"
 CONTENT_H    = CONTENT_BOT - CONTENT_TOP     # ~6.27"
-TOTAL_SLIDES = 20
+TOTAL_SLIDES = 16
 
 # Chart + panel standard positions
 CHART_L  = Inches(0.2)
@@ -664,166 +664,13 @@ def build_slide_11():
 
 
 # =============================================================================
-# Slide 12 — G7 Asian Still Declining
+# Slide 12 — What High-Performing Districts Do
 # =============================================================================
 def build_slide_12():
     slide = new_slide(
-        "G7 Asian: First IM Year Shows Slight Decline",
-        "High-Asian peers with tracking outpace Troy's G7 Asian (2023 → 2025)",
-        slide_num=12)
-
-    embed_chart(slide, "chart06_asian_g7_trend.png")
-
-    # Comparison cards
-    cards = [
-        ("Issaquah (WA)", "+0.384", LIGHT_GREEN, ACCENT_GREEN),
-        ("Bellevue (WA)", "+0.192", LIGHT_GREEN, ACCENT_GREEN),
-        ("Troy (MI)", "−0.028", LIGHT_RED, ACCENT_RED),
-    ]
-
-    card_h = Inches(1.55)
-    gap = Inches(0.15)
-    for i, (dist, delta, bg, clr) in enumerate(cards):
-        cy = PANEL_T + Inches(i * (1.55 + 0.15))
-        ix, iy, iw, ih = panel_box(slide, PANEL_L, cy, PANEL_W, card_h, bg)
-        add_text(slide, ix, iy, iw, Inches(0.35),
-                 dist, font_size=14, bold=True, color=GRAY_DARK)
-        add_text(slide, ix, iy + Inches(0.45), iw, Inches(0.7),
-                 delta, font_size=30, bold=True, color=clr)
-
-
-# =============================================================================
-# Slide 13 — Every Subgroup Declined
-# =============================================================================
-def build_slide_13():
-    slide = new_slide(
-        "IM-Window Recovery by Subgroup (2023-2025)",
-        "G6+G7 Math: Asian leads combined recovery; White lags peers",
-        slide_num=13)
-
-    embed_chart(slide, "chart07_troy_subgroup_waterfall.png")
-
-    ix, iy, iw, ih = panel_box(slide, PANEL_L, PANEL_T, PANEL_W, PANEL_H, GRAY_LIGHT)
-    add_text(slide, ix, iy, iw, Inches(0.4),
-             "Key Findings", font_size=16, bold=True, color=TROY_BLUE)
-    add_multiline(slide, ix, iy + Inches(0.5), iw, ih - Inches(0.6), [
-        "Every subgroup recovered except G7 Asian (-0.028).",
-        "",
-        "Asian G6 leads recovery (+0.312), strongest of any Troy subgroup.",
-        "",
-        "White subgroup barely improved (+0.023 combined), 7th of 8 MI peers in G6.",
-        "",
-        "ECD recovery is mixed: G6 flat (-0.007), G7 strong (+0.149, 3rd of 8).",
-        "",
-        "All subgroups remain below pre-COVID levels.",
-    ], font_size=14, color=GRAY_DARK, space_after=4)
-
-
-# =============================================================================
-# Slide 14 — M-STEP Proficiency
-# =============================================================================
-def build_slide_14():
-    slide = new_slide(
-        "M-STEP Math Proficiency: The Numbers Parents See",
-        "Michigan M-STEP % proficient or advanced, grades 6 and 7",
-        slide_num=14)
-
-    embed_chart(slide, "chart08_mstep_troy_proficiency.png")
-
-    ix, iy, iw, ih = panel_box(slide, PANEL_L, PANEL_T, PANEL_W, PANEL_H, GRAY_LIGHT)
-
-    add_text(slide, ix, iy, iw, Inches(0.4),
-             "% Proficient or Advanced", font_size=15, bold=True, color=TROY_BLUE)
-
-    # Table header
-    tbl_y = iy + Inches(0.55)
-    row_h = Inches(0.38)
-    add_rect(slide, ix, tbl_y, iw, row_h, TROY_BLUE)
-    add_text(slide, ix + Inches(0.08), tbl_y + Inches(0.04), Inches(0.6), row_h,
-             "Grade", font_size=11, bold=True, color=WHITE)
-    years = ["2021-22", "2022-23", "2023-24", "2024-25"]
-    col_w = Inches(0.85)
-    for j, yr in enumerate(years):
-        add_text(slide, ix + Inches(0.7) + col_w * j, tbl_y + Inches(0.04), col_w, row_h,
-                 yr, font_size=10, bold=True, color=WHITE, alignment='center')
-
-    # G6 row
-    g6_y = tbl_y + row_h
-    add_rect(slide, ix, g6_y, iw, row_h, WHITE)
-    add_text(slide, ix + Inches(0.08), g6_y + Inches(0.04), Inches(0.6), row_h,
-             "G6", font_size=12, bold=True, color=GRAY_DARK)
-    g6_vals = ["71.4%", "63.2%", "66.3%", "65.8%"]
-    for j, v in enumerate(g6_vals):
-        add_text(slide, ix + Inches(0.7) + col_w * j, g6_y + Inches(0.04), col_w, row_h,
-                 v, font_size=12, color=GRAY_DARK, alignment='center')
-
-    # G7 row
-    g7_y = g6_y + row_h
-    add_rect(slide, ix, g7_y, iw, row_h, GRAY_LIGHT)
-    add_text(slide, ix + Inches(0.08), g7_y + Inches(0.04), Inches(0.6), row_h,
-             "G7", font_size=12, bold=True, color=GRAY_DARK)
-    g7_vals = ["67.5%", "61.3%", "66.0%", "TBD"]
-    for j, v in enumerate(g7_vals):
-        add_text(slide, ix + Inches(0.7) + col_w * j, g7_y + Inches(0.04), col_w, row_h,
-                 v, font_size=12, color=GRAY_DARK, alignment='center')
-
-    # Bottom callout
-    callout_y = g7_y + row_h + Inches(0.3)
-    add_rect(slide, ix, callout_y, iw, Inches(1.2), LIGHT_RED)
-    accent_bar(slide, ix, callout_y, iw, ACCENT_RED)
-    add_text(slide, ix + Inches(0.1), callout_y + Inches(0.15), iw - Inches(0.2), Inches(1.0),
-             "IM has not restored Troy to pre-COVID proficiency",
-             font_size=14, bold=True, color=ACCENT_RED)
-
-
-# =============================================================================
-# Slide 15 — San Francisco
-# =============================================================================
-# =============================================================================
-# Slide 15 — The 50% Algebra 1 Claim
-# =============================================================================
-def build_slide_15():
-    slide = new_slide(
-        "The ‘50% Algebra 1’ Claim - Course Access is not Achievement",
-        "G6+G7 Math: course enrollment is not an achievement metric",
-        slide_num=15)
-
-    findings = [
-        ("1", "Enrollment is not achievement. More students enrolled in "
-         "Algebra 1 does not mean more have mastered prerequisite skills. "
-         "Course access and course readiness are different metrics."),
-        ("2", "SEDA shows Troy G6+G7 rose +0.076 in the IM window "
-         "(2023-2025) but remains far below pre-COVID +0.937"),
-        ("3", "The comparison is not past Troy enrollment - it is what "
-         "tracked peers achieve now"),
-    ]
-
-    box_y = Inches(1.15)
-    box_h = Inches(1.55)
-    gap = Inches(0.15)
-
-    for i, (num, text) in enumerate(findings):
-        ry = box_y + Inches(i * (1.55 + 0.15))
-        add_rect(slide, Inches(0.4), ry, Inches(12.5), box_h, LIGHT_ORANGE)
-        accent_bar(slide, Inches(0.4), ry, Inches(12.5), ACCENT_ORANGE)
-        # Number badge
-        cx = Inches(0.7)
-        cy_c = ry + Inches(0.4)
-        add_rect(slide, cx, cy_c, Inches(0.45), Inches(0.45), ACCENT_ORANGE)
-        add_text(slide, cx, cy_c, Inches(0.45), Inches(0.45),
-                 num, font_size=16, bold=True, color=WHITE, alignment='center', valign='middle')
-        add_text(slide, Inches(1.35), ry + Inches(0.25), Inches(11.3), box_h - Inches(0.4),
-                 text, font_size=16, color=GRAY_DARK)
-
-
-# =============================================================================
-# Slide 16 — What High-Performing Districts Do
-# =============================================================================
-def build_slide_16():
-    slide = new_slide(
         "What High-Performing Math Districts Do Differently",
         "G6+G7 Math: among 107 high-Asian (>=20%) peers, many recovered with tracking intact",
-        slide_num=16)
+        slide_num=12)
 
     embed_chart(slide, "chart10_high_asian_peers_delta.png")
 
@@ -847,13 +694,13 @@ def build_slide_16():
 
 
 # =============================================================================
-# Slide 17 — Conclusions
+# Slide 14 — Conclusions
 # =============================================================================
-def build_slide_17():
+def build_slide_14():
     slide = new_slide(
         "Conclusions",
         "G6+G7 Math: four findings from SEDA and M-STEP data",
-        slide_num=17)
+        slide_num=14)
 
     conclusions = [
         (ACCENT_ORANGE, LIGHT_ORANGE,
@@ -889,13 +736,13 @@ def build_slide_17():
 
 
 # =============================================================================
-# Slide 18 — Methodology
+# Slide 15 — Methodology
 # =============================================================================
-def build_slide_18():
+def build_slide_15():
     slide = new_slide(
         "Methodology",
         "G6+G7 Math — SEDA 2025.1 (Stanford CEPA) — NAEP-anchored cross-state comparison",
-        slide_num=18)
+        slide_num=15)
 
     sections = [
         ("Primary Metric",
@@ -930,13 +777,13 @@ def build_slide_18():
 
 
 # =============================================================================
-# Slide 19 — References
+# Slide 16 — References
 # =============================================================================
-def build_slide_19():
+def build_slide_16():
     slide = new_slide(
         "References",
         "Primary data sources",
-        slide_num=19)
+        slide_num=16)
 
     references = [
         "SEDA 2025.1 -- Stanford Center for Education Policy Analysis (CEPA). "
@@ -963,13 +810,13 @@ def build_slide_19():
 
 
 # =============================================================================
-# Slide 20 — Appendix: SEDA National Ranking (matches K-5 ELA slide 24)
+# Slide 13 — SEDA National Ranking (matches K-5 ELA slide 24)
 # =============================================================================
-def build_slide_20():
+def build_slide_13():
     slide = new_slide(
-        "Appendix -- Troy Slid from Top 2% to Top 4% Nationally in G6+G7 Math",
+        "Troy Slid from Top 2% to Top 4% Nationally in G6+G7 Math",
         "Year-by-year SEDA national ranking (all U.S. districts) + absolute level among 296 level-matched peers",
-        slide_num=20)
+        slide_num=13)
 
     # -- LEFT PANEL: national ranking table --
     add_rect(slide, Inches(0.3), Inches(0.95), Inches(5.2), Inches(4.6), LIGHT_RED)
@@ -1015,11 +862,17 @@ def build_slide_20():
     add_text(slide, Inches(0.5), Inches(4.22), Inches(4.8), Inches(0.30),
              "Dropped ~70 national places since 2019",
              font_size=16, bold=True, color=ACCENT_RED)
-    add_text(slide, Inches(0.5), Inches(4.58), Inches(4.8), Inches(0.85),
+    add_text(slide, Inches(0.5), Inches(4.50), Inches(4.8), Inches(0.65),
              "Troy went from top 2% nationally to top 4%.\n"
              "Score declined -0.162 grade levels.\n"
              "2025 rank ticks up as score partially recovered.",
              font_size=11, color=GRAY_DARK)
+
+    add_text(slide, Inches(0.5), Inches(5.15), Inches(4.8), Inches(0.45),
+             "Pool note: ranking requires both G6 + G7 data. "
+             "9 states (IL, PA, OK, KS, ME, OR, MT, ND, UT) have no G7 math "
+             "data in SEDA 2025.1, shrinking the pool from 8,751 to 5,896.",
+             font_size=8, color=GRAY_MID)
 
     # -- RIGHT: scatter plot --
     embed_chart(slide, "chart_seda_scatter_math.png",
@@ -1061,7 +914,7 @@ def build_slide_20():
 
 
 # =============================================================================
-# Build all 20 slides
+# Build all 16 slides
 # =============================================================================
 def main():
     build_slide_01()
@@ -1080,10 +933,6 @@ def main():
     build_slide_14()
     build_slide_15()
     build_slide_16()
-    build_slide_17()
-    build_slide_18()
-    build_slide_19()
-    build_slide_20()
 
     prs.save(str(OUTPUT))
     print(f"Deck saved to {OUTPUT}")

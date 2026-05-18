@@ -38,7 +38,7 @@ WHITE          = "#FFFFFF"
 
 DPI  = 192
 FIG_W, FIG_H = 10, 5.625   # 1920x1080 at 192 DPI
-TOTAL = 20
+TOTAL = 16
 
 
 # ── Helper Functions ─────────────────────────────────────────────────────────
@@ -608,174 +608,11 @@ def slide_11():
 
 
 def slide_12():
-    """G7 Asian Math Is Still Declining Under IM."""
-    fig, ax = new_slide()
-    header(ax, "G7 Asian: First IM Year Shows Slight Decline",
-           "High-Asian peers with tracking outpace Troy's G7 Asian (2023 → 2025)")
-    footer_bar(ax, 12)
-
-    embed_chart(fig, chart_path("chart06_asian_g7_trend.png"),
-                0.01, 0.05, 0.64, 0.87)
-
-    # Right panel with three comparison cards
-    px, pw = 0.66, 0.33
-    py, ph = 0.05, 0.87
-    rect(ax, px, py, pw, ph, GRAY_LIGHT)
-
-    section_header_rect(ax, px + 0.01, py + ph - 0.06, pw - 0.02, 0.05,
-                        "G7 Asian IM-Window Δ", fontsize=10)
-
-    comparisons = [
-        ("Issaquah (WA)", "30% Asian, tracked", "+0.384", LIGHT_GREEN, ACCENT_GREEN),
-        ("Bellevue (WA)", "41% Asian, tracked", "+0.192", LIGHT_GREEN, ACCENT_GREEN),
-        ("Troy (MI)",     "36% Asian, IM+detracked", "−0.028", LIGHT_RED, ACCENT_RED),
-    ]
-    card_h = 0.24
-    gap = 0.03
-    y_top = py + ph - 0.14
-    for i, (district, demo, delta, bg, clr) in enumerate(comparisons):
-        cy = y_top - i * (card_h + gap)
-        rect(ax, px + 0.01, cy - card_h + 0.02, pw - 0.02, card_h, bg)
-        accent_bar(ax, px + 0.01, cy + 0.02, pw - 0.02, clr, 0.004)
-        text(ax, px + 0.03, cy - 0.01, district,
-             fontsize=12, weight="bold", color=GRAY_DARK)
-        text(ax, px + 0.03, cy - 0.06, demo,
-             fontsize=10, color=GRAY_MID)
-        text(ax, px + 0.03, cy - 0.14, delta,
-             fontsize=22, weight="bold", color=clr)
-
-    save_slide(fig, 12)
-
-
-def slide_13():
-    """Every Subgroup Declined -- Recovery Is Uneven."""
-    fig, ax = new_slide()
-    header(ax, "IM-Window Recovery by Subgroup (2023-2025)",
-           "G6+G7 Math: Asian leads combined recovery; White lags peers")
-    footer_bar(ax, 13)
-
-    embed_chart(fig, chart_path("chart07_troy_subgroup_waterfall.png"),
-                0.01, 0.05, 0.64, 0.87)
-
-    # Right panel
-    px, pw = 0.66, 0.33
-    py, ph = 0.05, 0.87
-    rect(ax, px, py, pw, ph, LIGHT_ORANGE)
-
-    section_header_rect(ax, px + 0.01, py + ph - 0.06, pw - 0.02, 0.05,
-                        "Key Findings", fontsize=10)
-
-    text(ax, px + 0.02, py + ph - 0.12,
-         "Every subgroup recovered\n"
-         "except G7 Asian (−0.028).\n\n"
-         "Asian G6 leads recovery\n"
-         "(+0.312), strongest of any\n"
-         "Troy subgroup.\n\n"
-         "White subgroup barely\n"
-         "improved (+0.023 combined),\n"
-         "7th of 8 MI peers in G6.\n\n"
-         "ECD recovery is mixed:\n"
-         "G6 flat (−0.007), G7\n"
-         "strong (+0.149, 3rd of 8).\n\n"
-         "All subgroups remain below\n"
-         "pre-COVID levels.",
-         fontsize=11.5, color=GRAY_DARK)
-
-    save_slide(fig, 13)
-
-
-def slide_14():
-    """M-STEP: The Numbers Parents See."""
-    fig, ax = new_slide()
-    header(ax, "M-STEP: The Numbers Parents See",
-           "Michigan M-STEP % proficient, grades 6 and 7")
-    footer_bar(ax, 14)
-
-    embed_chart(fig, chart_path("chart08_mstep_troy_proficiency.png"),
-                0.01, 0.05, 0.64, 0.87)
-
-    # Right panel
-    px, pw = 0.66, 0.33
-    py, ph = 0.05, 0.87
-    rect(ax, px, py, pw, ph, GRAY_LIGHT)
-
-    section_header_rect(ax, px + 0.01, py + ph - 0.06, pw - 0.02, 0.05,
-                        "M-STEP Proficiency", fontsize=10)
-
-    text(ax, px + 0.02, py + ph - 0.13, "Grade 6",
-         fontsize=13, weight="bold", color=TROY_BLUE)
-    text(ax, px + 0.02, py + ph - 0.19,
-         "2019: 71.4%\n2022: 63.2%\n2023: 66.3%  (1st IM)\n2024: 65.8%  (2nd IM)",
-         fontsize=11, color=GRAY_DARK, family="monospace")
-
-    accent_bar(ax, px + 0.02, py + ph - 0.42, 0.12, TROY_BLUE)
-
-    text(ax, px + 0.02, py + ph - 0.46, "Grade 7",
-         fontsize=13, weight="bold", color=TROY_BLUE)
-    text(ax, px + 0.02, py + ph - 0.52,
-         "2019: 67.5%\n2022: 61.3%\n2023: 66.0%  (tracked)\n2024: TBD   (1st IM)",
-         fontsize=11, color=GRAY_DARK, family="monospace")
-
-    accent_bar(ax, px + 0.02, py + ph - 0.73, 0.12, ACCENT_RED)
-
-    text(ax, px + 0.02, py + ph - 0.77,
-         "IM has not restored\npre-COVID proficiency",
-         fontsize=13, weight="bold", color=ACCENT_RED)
-
-    text(ax, px + 0.02, py + ph - 0.88,
-         "G6 proficiency is still 5.6\n"
-         "points below the 2019 peak\n"
-         "after two years of IM.",
-         fontsize=11, color=GRAY_DARK, style="italic")
-
-    save_slide(fig, 14)
-
-
-def slide_15():
-    """The '50% Algebra 1' Claim."""
-    fig, ax = new_slide()
-    header(ax, "The ‘50% Algebra 1’ Claim",
-           "G6+G7 Math: course enrollment is not an achievement metric")
-    footer_bar(ax, 15)
-
-    findings = [
-        (ACCENT_ORANGE, LIGHT_ORANGE,
-         "Enrollment is not achievement",
-         "More students enrolled in Algebra 1 does not mean more students "
-         "have mastered prerequisite skills. Course access and course "
-         "readiness are different metrics."),
-        (ACCENT_ORANGE, LIGHT_ORANGE,
-         "SEDA scores tell a different story",
-         "G6+G7 math rose +0.076 in the IM window (2023-2025) but remains "
-         "far below pre-COVID +0.937. Recovery is real but slow. "
-         "More students in Algebra 1 does not mean more are ready for it."),
-        (ACCENT_ORANGE, LIGHT_ORANGE,
-         "The real comparison is peer performance",
-         "The question is not whether more Troy students now take Algebra 1. "
-         "It is whether Troy students learn as much math as peers at "
-         "comparable districts — and the answer is no."),
-    ]
-    panel_h = 0.25
-    gap = 0.02
-    y_top = 0.67
-    for i, (accent_clr, bg_clr, heading, detail) in enumerate(findings):
-        py_f = y_top - i * (panel_h + gap)
-        rect(ax, 0.03, py_f, 0.94, panel_h, bg_clr)
-        accent_bar(ax, 0.03, py_f + panel_h, 0.94, accent_clr, 0.005)
-        text(ax, 0.06, py_f + panel_h - 0.04, heading,
-             fontsize=15, weight="bold", color=accent_clr)
-        text(ax, 0.06, py_f + panel_h - 0.12, detail,
-             fontsize=12, color=GRAY_DARK, wrap_width=90)
-
-    save_slide(fig, 15)
-
-
-def slide_16():
     """What High-Performing Districts Do Differently."""
     fig, ax = new_slide()
     header(ax, "What High-Performing Districts Do Differently",
            "G6+G7 Math: among 107 high-Asian (>=20%) peers, many recovered with tracking intact")
-    footer_bar(ax, 16)
+    footer_bar(ax, 12)
 
     embed_chart(fig, chart_path("chart10_high_asian_peers_delta.png"),
                 0.01, 0.05, 0.64, 0.87)
@@ -805,15 +642,116 @@ def slide_16():
          "performing peers.",
          fontsize=12, color=GRAY_DARK)
 
-    save_slide(fig, 16)
+    save_slide(fig, 12)
 
 
-def slide_17():
+def slide_13():
+    """SEDA National Ranking -- Troy top 2% to top 4%."""
+    fig, ax = new_slide()
+    header(ax, "Troy Slid from Top 2% to Top 4% Nationally in G6+G7 Math",
+           "Year-by-year SEDA national ranking (all U.S. districts) + absolute level among 296 level-matched peers")
+    footer_bar(ax, 13)
+
+    # ── LEFT PANEL: national ranking table ──
+    lp_x, lp_w = 0.02, 0.39
+    lp_y, lp_h = 0.08, 0.57
+    rect(ax, lp_x, lp_y, lp_w, lp_h, LIGHT_RED)
+    accent_bar(ax, lp_x, lp_y + lp_h, lp_w, ACCENT_RED, 0.004)
+
+    text(ax, lp_x + 0.015, lp_y + lp_h - 0.035,
+         "National G6+G7 Math ranking trajectory",
+         fontsize=12, weight="bold", color=ACCENT_RED)
+    text(ax, lp_x + 0.015, lp_y + lp_h - 0.065,
+         "SEDA 2025.1 cs scale -- all U.S. districts with G6+G7 math data",
+         fontsize=7.5, color=GRAY_MID, style="italic")
+
+    hdr_y = lp_y + lp_h - 0.10
+    cols = [lp_x + 0.015, lp_x + 0.07, lp_x + 0.15, lp_x + 0.27]
+    rect(ax, lp_x + 0.01, hdr_y - 0.035, lp_w - 0.02, 0.035, ACCENT_RED)
+    for cx, hdr in zip(cols, ["Year", "Score", "Rank", "Percentile"]):
+        text(ax, cx, hdr_y - 0.005, hdr,
+             fontsize=8, weight="bold", color="white")
+
+    rows = [
+        ("2019", "+0.952", "173 / 8,751", "Top 2.0%", False),
+        ("2022", "+0.763", "229 / 8,215", "Top 2.8%", False),
+        ("2023", "+0.713", "269 / 7,190", "Top 3.7%", True),
+        ("2024", "+0.734", "294 / 6,995", "Top 4.2%", True),
+        ("2025", "+0.790", "240 / 5,896", "Top 4.1%", True),
+    ]
+    for i, (yr, score, rank, pct, warn) in enumerate(rows):
+        ry = hdr_y - 0.07 - i * 0.045
+        clr = ACCENT_RED if warn else GRAY_DARK
+        if i == 0:
+            rect(ax, lp_x + 0.01, ry - 0.015, lp_w - 0.02, 0.045, LIGHT_GREEN)
+        text(ax, cols[0], ry, yr, fontsize=9, weight="bold", color=clr)
+        text(ax, cols[1], ry, score, fontsize=9, color=clr, family="monospace")
+        text(ax, cols[2], ry, rank, fontsize=8, color=clr, family="monospace")
+        pct_clr = ACCENT_GREEN if i == 0 else (ACCENT_RED if warn else GRAY_DARK)
+        text(ax, cols[3], ry, pct, fontsize=9, weight="bold", color=pct_clr)
+
+    text(ax, lp_x + 0.015, lp_y + lp_h - 0.44,
+         "Dropped ~70 national places since 2019",
+         fontsize=11, weight="bold", color=ACCENT_RED)
+    text(ax, lp_x + 0.015, lp_y + lp_h - 0.48,
+         "Troy went from top 2% nationally to top 4%.\n"
+         "Score declined -0.162 grade levels.\n"
+         "2025 rank ticks up as score partially recovered.",
+         fontsize=8.5, color=GRAY_DARK)
+
+    text(ax, lp_x + 0.015, lp_y + 0.02,
+         "Pool note: ranking requires both G6 + G7 data.\n"
+         "9 states (IL, PA, OK, KS, ME, OR, MT, ND, UT)\n"
+         "have no G7 math data in SEDA 2025.1, shrinking\n"
+         "the pool from 8,751 (2019) to 5,896 (2025).",
+         fontsize=6.5, color=GRAY_MID, style="italic")
+
+    # ── RIGHT PANEL: scatter plot ──
+    embed_chart(fig, chart_path("chart_seda_scatter_math.png"),
+                0.42, 0.08, 0.57, 0.57)
+
+    # ── BOTTOM STRIP: peer + MI context ──
+    bot_y, bot_h = 0.045, 0.18
+    rect(ax, 0.02, bot_y - 0.005, 0.96, bot_h, GRAY_LIGHT)
+
+    text(ax, 0.035, bot_y + bot_h - 0.025,
+         "Among 296 level-matched peers",
+         fontsize=9, weight="bold", color=TROY_BLUE)
+    text(ax, 0.035, bot_y + bot_h - 0.07,
+         "Pre-COVID rank:  76 / 296  (top quarter)\n"
+         "Post-COVID rank: 135 / 296  (bottom 55%)\n"
+         "70 districts leapfrogged Troy",
+         fontsize=8, color=GRAY_DARK, family="monospace")
+
+    text(ax, 0.44, bot_y + bot_h - 0.025,
+         "Michigan affluent peers -- score delta (2019 to 2025)",
+         fontsize=9, weight="bold", color=TROY_BLUE)
+
+    mi_peers = [
+        ("Birmingham",      "+0.131", ACCENT_GREEN),
+        ("Northville",      "+0.087", ACCENT_GREEN),
+        ("Bloomfield Hills", "+0.085", ACCENT_GREEN),
+        ("Troy SD",         "-0.162", ACCENT_RED),
+        ("Novi",            "-0.167", ACCENT_RED),
+        ("W. Bloomfield",   "-0.181", ACCENT_RED),
+        ("Rochester",       "-0.188", ACCENT_RED),
+        ("Walled Lake",     "-0.197", ACCENT_RED),
+    ]
+    for i, (dist, delta, clr) in enumerate(mi_peers):
+        mx = 0.44 + (i % 4) * 0.14
+        my = bot_y + bot_h - 0.07 - (i // 4) * 0.05
+        text(ax, mx, my, dist, fontsize=7, color=GRAY_DARK)
+        text(ax, mx + 0.09, my, delta, fontsize=7.5, weight="bold", color=clr)
+
+    save_slide(fig, 13)
+
+
+def slide_14():
     """Conclusions."""
     fig, ax = new_slide()
     header(ax, "Conclusions",
            "G6+G7 Math: four findings from SEDA and M-STEP data")
-    footer_bar(ax, 17)
+    footer_bar(ax, 14)
 
     conclusions = [
         (ACCENT_ORANGE, LIGHT_ORANGE,
@@ -850,31 +788,31 @@ def slide_17():
         text(ax, 0.09, cy - 0.06, detail,
              fontsize=11, color=GRAY_DARK, wrap_width=80)
 
-    save_slide(fig, 17)
+    save_slide(fig, 14)
 
 
-def slide_18():
+def slide_15():
     """Methodology."""
     fig, ax = new_slide()
     header(ax, "Methodology",
            "G6+G7 Math — SEDA 2025.1 (Stanford CEPA)")
-    footer_bar(ax, 18)
+    footer_bar(ax, 15)
 
     sections = [
         ("Data Source",
          "SEDA 2025.1 (Stanford Center for Education Policy Analysis). "
          "Nationally standardized, NAEP-anchored achievement data covering "
-         "2009–2025."),
+         "2009-2025."),
         ("Metric",
          "cs_mn — cohort-standardized mean. One unit = one grade level of "
          "learning. NAEP-anchored for cross-state comparability."),
         ("Time Windows",
-         "Pre-COVID: 2017–2019 mean\n"
-         "Post-COVID: 2022–2025 mean\n"
-         "IM Window: 2023 → 2025 (last pre-IM test to latest data)"),
+         "Pre-COVID: 2017-2019 mean\n"
+         "Post-COVID: 2022-2025 mean\n"
+         "IM Window: 2023 to 2025 (last pre-IM test to latest data)"),
         ("Peer Groups",
-         "296 level-matched (pre-COVID G6+G7 math ±0.25 of Troy’s +0.937)\n"
-         "107 high-Asian (≥20% Asian, pre-COVID ≥+0.50)\n"
+         "296 level-matched (pre-COVID G6+G7 math +/-0.25 of Troy’s +0.937)\n"
+         "107 high-Asian (>=20% Asian, pre-COVID >=+0.50)\n"
          "8 MI affluent peers (same state test, Oakland County focus)"),
         ("Subgroups",
          "All Students, Asian, White, Black, Hispanic, Economically "
@@ -890,15 +828,15 @@ def slide_18():
         line_h = max(0.06, 0.05 * n_lines + 0.035)
         sy -= line_h + 0.02
 
-    save_slide(fig, 18)
+    save_slide(fig, 15)
 
 
-def slide_19():
+def slide_16():
     """References."""
     fig, ax = new_slide()
     header(ax, "References",
            "Primary data sources")
-    footer_bar(ax, 19)
+    footer_bar(ax, 16)
 
     refs = [
         ("SEDA 2025.1",
@@ -924,105 +862,7 @@ def slide_19():
         text(ax, 0.08, ry - 0.055, desc,
              fontsize=10, color=GRAY_DARK, wrap_width=85)
 
-    save_slide(fig, 19)
-
-
-def slide_20():
-    """Appendix -- SEDA National Ranking (matches K-5 ELA slide 24 layout)."""
-    fig, ax = new_slide()
-    header(ax, "Appendix -- Troy Slid from Top 2% to Top 4% Nationally in G6+G7 Math",
-           "Year-by-year SEDA national ranking (all U.S. districts) + absolute level among 296 level-matched peers")
-    footer_bar(ax, 20)
-
-    # ── LEFT PANEL: national ranking table ──
-    lp_x, lp_w = 0.02, 0.39
-    lp_y, lp_h = 0.08, 0.57
-    rect(ax, lp_x, lp_y, lp_w, lp_h, LIGHT_RED)
-    accent_bar(ax, lp_x, lp_y + lp_h, lp_w, ACCENT_RED, 0.004)
-
-    text(ax, lp_x + 0.015, lp_y + lp_h - 0.035,
-         "National G6+G7 Math ranking trajectory",
-         fontsize=12, weight="bold", color=ACCENT_RED)
-    text(ax, lp_x + 0.015, lp_y + lp_h - 0.065,
-         "SEDA 2025.1 cs scale -- all U.S. districts with G6+G7 math data",
-         fontsize=7.5, color=GRAY_MID, style="italic")
-
-    # Table header
-    hdr_y = lp_y + lp_h - 0.10
-    cols = [lp_x + 0.015, lp_x + 0.07, lp_x + 0.15, lp_x + 0.27]
-    rect(ax, lp_x + 0.01, hdr_y - 0.035, lp_w - 0.02, 0.035, ACCENT_RED)
-    for cx, hdr in zip(cols, ["Year", "Score", "Rank", "Percentile"]):
-        text(ax, cx, hdr_y - 0.005, hdr,
-             fontsize=8, weight="bold", color="white")
-
-    rows = [
-        ("2019", "+0.952", "173 / 8,751", "Top 2.0%", False),
-        ("2022", "+0.763", "229 / 8,215", "Top 2.8%", False),
-        ("2023", "+0.713", "269 / 7,190", "Top 3.7%", True),
-        ("2024", "+0.734", "294 / 6,995", "Top 4.2%", True),
-        ("2025", "+0.790", "240 / 5,896", "Top 4.1%", True),
-    ]
-    for i, (yr, score, rank, pct, warn) in enumerate(rows):
-        ry = hdr_y - 0.07 - i * 0.045
-        clr = ACCENT_RED if warn else GRAY_DARK
-        if i == 0:
-            rect(ax, lp_x + 0.01, ry - 0.015, lp_w - 0.02, 0.045, LIGHT_GREEN)
-        text(ax, cols[0], ry, yr, fontsize=9, weight="bold", color=clr)
-        text(ax, cols[1], ry, score, fontsize=9, color=clr, family="monospace")
-        text(ax, cols[2], ry, rank, fontsize=8, color=clr, family="monospace")
-        pct_clr = ACCENT_GREEN if i == 0 else (ACCENT_RED if warn else GRAY_DARK)
-        text(ax, cols[3], ry, pct, fontsize=9, weight="bold", color=pct_clr)
-
-    # Callout below table
-    text(ax, lp_x + 0.015, lp_y + lp_h - 0.44,
-         "Dropped ~70 national places since 2019",
-         fontsize=11, weight="bold", color=ACCENT_RED)
-    text(ax, lp_x + 0.015, lp_y + lp_h - 0.50,
-         "Troy went from top 2% nationally to top 4%.\n"
-         "Score declined -0.162 grade levels.\n"
-         "2025 rank ticks up as score partially recovered.",
-         fontsize=9, color=GRAY_DARK)
-
-    # ── RIGHT PANEL: scatter plot ──
-    embed_chart(fig, chart_path("chart_seda_scatter_math.png"),
-                0.42, 0.08, 0.57, 0.57)
-
-    # ── BOTTOM STRIP: peer + MI context ──
-    bot_y, bot_h = 0.045, 0.18
-    rect(ax, 0.02, bot_y - 0.005, 0.96, bot_h, GRAY_LIGHT)
-
-    # Left: 296-peer context
-    text(ax, 0.035, bot_y + bot_h - 0.025,
-         "Among 296 level-matched peers",
-         fontsize=9, weight="bold", color=TROY_BLUE)
-    text(ax, 0.035, bot_y + bot_h - 0.07,
-         "Pre-COVID rank:  76 / 296  (top quarter)\n"
-         "Post-COVID rank: 135 / 296  (bottom 55%)\n"
-         "70 districts leapfrogged Troy",
-         fontsize=8, color=GRAY_DARK, family="monospace")
-
-    # Right: MI peers
-    text(ax, 0.44, bot_y + bot_h - 0.025,
-         "Michigan affluent peers -- score delta (2019 to 2025)",
-         fontsize=9, weight="bold", color=TROY_BLUE)
-
-    mi_peers = [
-        ("Birmingham",      "+0.131", ACCENT_GREEN),
-        ("Northville",      "+0.087", ACCENT_GREEN),
-        ("Bloomfield Hills", "+0.085", ACCENT_GREEN),
-        ("Troy SD",         "-0.162", ACCENT_RED),
-        ("Novi",            "-0.167", ACCENT_RED),
-        ("W. Bloomfield",   "-0.181", ACCENT_RED),
-        ("Rochester",       "-0.188", ACCENT_RED),
-        ("Walled Lake",     "-0.197", ACCENT_RED),
-    ]
-    for i, (dist, delta, clr) in enumerate(mi_peers):
-        mx = 0.44 + (i % 4) * 0.14
-        my = bot_y + bot_h - 0.07 - (i // 4) * 0.05
-        text(ax, mx, my, dist, fontsize=7, color=GRAY_DARK)
-        text(ax, mx + 0.09, my, delta, fontsize=7.5, weight="bold", color=clr)
-
-    save_slide(fig, 20)
+    save_slide(fig, 16)
 
 
 # ── Main ─────────────────────────────────────────────────────────────────────
@@ -1046,10 +886,6 @@ def main():
     slide_14()
     slide_15()
     slide_16()
-    slide_17()
-    slide_18()
-    slide_19()
-    slide_20()
 
     print(f"Done -- {TOTAL} slides saved.")
 
