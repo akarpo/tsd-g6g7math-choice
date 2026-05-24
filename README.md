@@ -90,7 +90,7 @@ analysis/
   build_charts.py             Generate 10 matplotlib charts
   build_deck.py               Generate PowerPoint deck
   render_slides.py            Render slides as PNG images
-  pull_mstep_v2.py            M-STEP scraper (uses tools-mischooldata)
+  pull_mstep_v2.py            M-STEP scraper (uses bundled mischooldata.py)
 ```
 
 ## Reproduction

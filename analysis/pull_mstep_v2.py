@@ -9,7 +9,6 @@ both schoolYears and grades changes. We handle this by:
 """
 import csv, os, sys, time
 sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', buffering=1)
-sys.path.insert(0, "/Users/Alex/Downloads/tools-mischooldata")
 from mischooldata import MiSchoolDataReport
 
 URL = "https://www.mischooldata.org/grades-3-8-state-testing-includes-psat-data-proficiency/"

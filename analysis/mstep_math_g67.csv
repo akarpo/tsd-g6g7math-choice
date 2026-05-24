@@ -1,0 +1,49 @@
+district,school_year,grade,subgroup,pct_proficient,pct_advanced,n_tested,state_pct,isd_pct
+Troy School District,2018-19,6,All Students,71.4,51.3,1028,35.1,47.4
+Troy School District,2018-19,7,All Students,67.5,49.9,1016,35.7,45.9
+Troy School District,2022-23,6,All Students,63.2,41.0,960,29.6,38.6
+Troy School District,2022-23,7,All Students,61.3,42.9,940,31.0,39.7
+Troy School District,2023-24,6,All Students,66.3,42.7,970,31.0,40.6
+Troy School District,2023-24,7,All Students,66.0,43.8,973,32.1,41.2
+Troy School District,2024-25,6,All Students,65.8,44.8,932,31.5,41.9
+Troy School District,2024-25,7,All Students,68.4,46.4,990,33.3,43.1
+Birmingham Public Schools,2018-19,6,All Students,67.7,40.1,629,35.1,47.4
+Birmingham Public Schools,2018-19,7,All Students,64.1,36.1,612,35.7,45.9
+Birmingham Public Schools,2022-23,6,All Students,67.2,41.5,528,29.6,38.6
+Birmingham Public Schools,2022-23,7,All Students,64.6,36.1,477,31.0,39.7
+Birmingham Public Schools,2023-24,6,All Students,75.0,47.4,517,31.0,40.6
+Birmingham Public Schools,2023-24,7,All Students,69.4,43.6,532,32.1,41.2
+Birmingham Public Schools,2024-25,6,All Students,68.4,43.1,538,31.5,41.9
+Birmingham Public Schools,2024-25,7,All Students,72.4,45.6,526,33.3,43.1
+Bloomfield Hills Schools,2018-19,6,All Students,69.0,41.4,413,35.1,47.4
+Bloomfield Hills Schools,2018-19,7,All Students,69.4,40.1,421,35.7,45.9
+Bloomfield Hills Schools,2022-23,6,All Students,65.2,43.8,379,29.6,38.6
+Bloomfield Hills Schools,2022-23,7,All Students,67.6,38.6,370,31.0,39.7
+Bloomfield Hills Schools,2023-24,6,All Students,67.3,45.7,392,31.0,40.6
+Bloomfield Hills Schools,2023-24,7,All Students,70.9,42.1,382,32.1,41.2
+Bloomfield Hills Schools,2024-25,6,All Students,73.9,47.8,341,31.5,41.9
+Bloomfield Hills Schools,2024-25,7,All Students,66.1,43.6,404,33.3,43.1
+Novi Community School District,2018-19,6,All Students,76.5,55.3,557,35.1,47.4
+Novi Community School District,2018-19,7,All Students,75.8,53.4,528,35.7,45.9
+Novi Community School District,2022-23,6,All Students,64.4,42.9,531,29.6,38.6
+Novi Community School District,2022-23,7,All Students,68.3,43.2,523,31.0,39.7
+Novi Community School District,2023-24,6,All Students,73.1,50.9,513,31.0,40.6
+Novi Community School District,2023-24,7,All Students,66.9,42.0,540,32.1,41.2
+Novi Community School District,2024-25,6,All Students,65.5,47.8,527,31.5,41.9
+Novi Community School District,2024-25,7,All Students,71.5,50.8,530,33.3,43.1
+Rochester Community School District,2018-19,6,All Students,65.2,41.9,1173,35.1,47.4
+Rochester Community School District,2018-19,7,All Students,65.7,40.0,1161,35.7,45.9
+Rochester Community School District,2022-23,6,All Students,53.2,25.4,1152,29.6,38.6
+Rochester Community School District,2022-23,7,All Students,58.0,31.2,1112,31.0,39.7
+Rochester Community School District,2023-24,6,All Students,55.1,29.7,1088,31.0,40.6
+Rochester Community School District,2023-24,7,All Students,61.3,32.7,1159,32.1,41.2
+Rochester Community School District,2024-25,6,All Students,62.1,32.0,1058,31.5,41.9
+Rochester Community School District,2024-25,7,All Students,62.2,33.5,1110,33.3,43.1
+Northville Public Schools,2018-19,6,All Students,70.1,47.1,546,35.1,24.8
+Northville Public Schools,2018-19,7,All Students,71.4,46.5,615,35.7,26.2
+Northville Public Schools,2022-23,6,All Students,71.6,46.9,542,29.6,20.8
+Northville Public Schools,2022-23,7,All Students,68.6,42.6,526,31.0,22.0
+Northville Public Schools,2023-24,6,All Students,73.9,51.1,501,31.0,22.1
+Northville Public Schools,2023-24,7,All Students,75.3,47.7,547,32.1,24.4
+Northville Public Schools,2024-25,6,All Students,73.9,48.1,541,31.5,24.0
+Northville Public Schools,2024-25,7,All Students,77.2,50.7,509,33.3,25.6
